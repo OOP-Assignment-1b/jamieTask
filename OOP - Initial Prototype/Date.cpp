@@ -11,7 +11,7 @@ Date::Date(const int& day, const int& month, const int& year):
 std::string Date::getCurrentDate() const
 {
 
-	return std::to_string(this->day) + " " + std::to_string(this->month) + " " + std::to_string(this->year);
+	return std::to_string(this->day) + "/" + std::to_string(this->month) + "/" + std::to_string(this->year);
 	
 }
 
@@ -55,9 +55,27 @@ void Date::setYear(const int& year)
 	this->year = year;
 }
 
-bool Date::compareDate(const int& date, const int& month, const int& year) const
+bool Date::compareDate(const int& day, const int& month, const int& year) const
 {
 
-	return strcmp("2012/09/13", "2012/09/12") > 0;
+	if (this->year > year) return true;
+	else if(this->month > month) return true;
+	else if (this->day > day) return true;
+
+	return false;
 	
+}
+
+bool Date::compareDate(const std::string& date) const
+{
+
+	try{
+		return strcmp(date.c_str(), getCurrentDate().c_str()) < 0;
+	}
+	catch(...){
+		return false;
+	}
+
+	return false;
+
 }

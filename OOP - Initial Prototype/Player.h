@@ -3,12 +3,13 @@
 #include <string>
 #include "LibraryItem.h"
 #include "User.h"
+#include "List.h"
+#include "Date.h"
 
 class Player : public User
 {
 	public:
-		Player(const std::string&, const std::string&, const std::string&);
+		Player(const std::string&, const std::string&, const Date&);
 		~Player();
-		LibraryItem* library[2] = { }; // TODO: replace with custom List<T> class
-	private:
+		List<LibraryItem*> library;
 };
