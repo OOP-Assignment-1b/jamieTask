@@ -6,8 +6,13 @@
 class Store
 {
 	public:
-		Store();
+		Store() = default;
 		~Store();
-		List<Game*> games; // TODO: should be a dynamic collection
+
+		void addGame(Game* game);
+
+		Game getAtIndex(const int index);
+
 	private:
+		List<Game*> games;
 };

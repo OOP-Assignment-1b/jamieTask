@@ -1,6 +1,6 @@
 #include "Utils.h"
 
-std::string Utils::getLineFromUser()
+std::string Utils::getLineFromUser() 
 {
     std::string input;
     std::getline(std::cin, input);

@@ -18,31 +18,32 @@
 void createHardcodedTestData(Application& app)
 {
 	// Setup store with some games
-	app.GetStore().games.addInFront(new Game("The Witness", "Explore a nice island and solve puzzles.", 2999, 5));
-	app.GetStore().games.addInFront(new Game("Braid", "A time twisting puzzle game.", 499, 15));
-	app.GetStore().games.addInFront(new Game("Factorio", "Build a complicated factory in space.", 1599, 12));
-	app.GetStore().games.addInFront(new Game("LIMBO", "Watch out for that spider.", 299, 12));
-	app.GetStore().games.addInFront(new Game("INSIDE", "What are those scientists even doing?!", 1299, 15));
-	app.GetStore().games.addInFront(new Game("Portal 2", "Play around with physics. Shoot the moon.", 1999, 15));
-	app.GetStore().games.addInFront(new Game("Half Life 3", "It's never coming out.", 5999, 18));
-	app.GetStore().games.addInFront(new Game("NUVAVULT", "A game where 2D and 3D collide.", 299, 18));
-	app.GetStore().games.addInFront(new Game("Path", "Draw nice shapes between 2 big dots.", 299, 15));
+	app.GetStore().addGame(new Game("The Witness", "Explore a nice island and solve puzzles.", 2999, 5));
+	app.GetStore().addGame(new Game("Braid", "A time twisting puzzle game.", 499, 15));
+	app.GetStore().addGame(new Game("Factorio", "Build a complicated factory in space.", 1599, 12));
+	app.GetStore().addGame(new Game("LIMBO", "Watch out for that spider.", 299, 12));
+	app.GetStore().addGame(new Game("INSIDE", "What are those scientists even doing?!", 1299, 15));
+	app.GetStore().addGame(new Game("Portal 2", "Play around with physics. Shoot the moon.", 1999, 15));
+	app.GetStore().addGame(new Game("Half Life 3", "It's never coming out.", 5999, 18));
+	app.GetStore().addGame(new Game("NUVAVULT", "A game where 2D and 3D collide.", 299, 18));
+	app.GetStore().addGame(new Game("Path", "Draw nice shapes between 2 big dots.", 299, 15));
 
 	// Create some users
-	Player* u1 = new Admin("Alice", "password", "2018-06-16");
-	Player* u2 = new Player("Bob", "password", "2018-09-19");
-	Player* u3 = new Player("Charlie", "password", "2018-09-24");
+	
+	Player* u1 = new Admin("Alice", "password", Date(02,02,2001));
+	Player* u2 = new Player("Bob", "password", Date(02, 02, 2001));
+	Player* u3 = new Player("Charlie", "password", Date(02, 02, 2001));
 
 	// With some games in their library
-	u1->library.addInFront(new LibraryItem("2018-06-17", app.GetStore().games[7]));
-	u1->library.addInFront(new LibraryItem("2018-06-18", app.GetStore().games[1]));
-	u2->library.addInFront(new LibraryItem("2018-09-19", app.GetStore().games[2]));
-	u2->library.addInFront(new LibraryItem("2018-09-19", app.GetStore().games[3]));
-	u3->library.addInFront(new LibraryItem("2018-09-24", app.GetStore().games[3]));
-	u3->library.addInFront(new LibraryItem("2018-09-30", app.GetStore().games[6]));
+	u1->library.addInFront(new LibraryItem(Date(17, 6, 2018), &app.GetStore().getAtIndex(7)));
+	u1->library.addInFront(new LibraryItem(Date(18, 6, 2018), &app.GetStore().getAtIndex(1)));
+	u2->library.addInFront(new LibraryItem(Date(19, 9, 2018), &app.GetStore().getAtIndex(2)));
+	u2->library.addInFront(new LibraryItem(Date(19, 9, 2018), &app.GetStore().getAtIndex(3)));
+	u3->library.addInFront(new LibraryItem(Date(24, 9, 2018), &app.GetStore().getAtIndex(3)));
+	u3->library.addInFront(new LibraryItem(Date(30, 9, 2018), &app.GetStore().getAtIndex(6)));
 
 	// Make an account and attach the users
-	app.accounts.addInFront(new Account("alice@shu.com", "password", "2018-06-16"));
+	app.accounts.addInFront(new Account("alice@shu.com", "password", Date(02, 02, 2001)));
 	app.accounts[0]->users.addInFront(u1);
 	app.accounts[0]->users.addInFront(u2);
 	app.accounts[0]->users.addInFront(u3);
@@ -265,14 +266,6 @@ void main()
 	
 	// TODO: Remove call to dummy data, instead use Load and Save
 	createHardcodedTestData(app);
-	
-	List<int> list;
-	list.addInFront(10);
-	list.addInFront(7);
-	list.addInFront(8);
-	list.addInFront(7);
-
-	std::cout<< list[2];
 
 
 	// TODO: app.Load();
