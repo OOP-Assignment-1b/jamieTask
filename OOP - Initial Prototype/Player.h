@@ -9,7 +9,10 @@
 class Player : public User
 {
 	public:
-		Player(const std::string&, const std::string&, const Date&);
+		Player(const std::string&, const std::string&, const Date&, const std::string& role);
 		~Player();
+		void addLibraryItem(LibraryItem* item);
+		List<LibraryItem*> getAllItems() const;
+	private:
 		List<LibraryItem*> library;
 };

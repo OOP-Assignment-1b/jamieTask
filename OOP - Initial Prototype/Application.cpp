@@ -6,7 +6,7 @@ Application::Application() : currentAccount(nullptr), currentUser(nullptr)
 
 Application::~Application()
 {
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < accounts.length(); ++i)
 	{
 		delete accounts[i];
 	}
@@ -56,4 +56,18 @@ bool Application::LoginUser(const std::string& username, const std::string& pass
 void Application::LogoutUser()
 {
 	currentUser = nullptr;
+}
+
+Account* Application::getAccount(const int& index) const
+{
+	if (!(accounts.isEmpty() && accounts.length() < index))
+	{
+		return accounts[index];
+	}
+}
+
+
+void Application::addAccount(Account* account)
+{
+	this->accounts.addInFront(account);
 }

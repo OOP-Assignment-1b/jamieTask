@@ -6,11 +6,14 @@
 class User
 {
 	public:
-		User(const std::string&, const std::string&, const Date&);
+		User(const std::string&, const std::string&, const Date&, const std::string& role);
 		virtual ~User();
 		const std::string& GetUsername() const;
+		std::string getRole() const;
+
 	private:
 		std::string username;
 		std::string password;
-		Date created; 
+		const Date created;
+		const std::string role;
 };
