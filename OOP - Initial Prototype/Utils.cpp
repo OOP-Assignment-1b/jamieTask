@@ -35,3 +35,13 @@ const int Utils::getDay() {
     int day = newtime.tm_mday;
     return day;
 }
+
+std::string Utils::toLower(std::string& string)
+{
+    std::string c;
+    for(int i=0; i < string.length(); i++)
+    {
+        c+=tolower(string[i]);
+    }
+    return c;
+}

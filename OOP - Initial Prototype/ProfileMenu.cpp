@@ -88,6 +88,18 @@ bool ProfileMenu::HandleChoice(char choice)
 					BlockingMessage("No spaces allowed for username");
 					break;
 				}
+				bool inList = false;
+				List<User*> userList = app->GetCurrentAccount()->users;
+				for (int i=0; i < userList.length(); i++)
+				{
+					std::string usernameInList = userList[i]->GetUsername();
+					if (Utils::toLower(usernameInList) == Utils::toLower(username)) inList = !inList;
+				}
+				if (inList)
+				{
+					BlockingMessage("That user already exists!");
+					break;
+				}
 				std::string password = Question("What's the password of the user");
 				if (std::all_of(password.begin(), password.end(), isspace))
 				{
