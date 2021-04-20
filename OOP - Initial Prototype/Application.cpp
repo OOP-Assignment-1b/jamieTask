@@ -339,3 +339,17 @@ void Application::LogoutUser()
 {
 	currentUser = nullptr;
 }
+
+Account* Application::getAccount(const int& index) const
+{
+	if (!(accounts.isEmpty() && accounts.length() < index))
+	{
+		return accounts[index];
+	}
+}
+
+
+void Application::addAccount(Account* account)
+{
+	this->accounts.addInFront(account);
+}

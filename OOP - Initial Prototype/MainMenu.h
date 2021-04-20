@@ -2,6 +2,8 @@
 
 #include "Menu.h"
 #include "StoreMenu.h"
+#include "ProfileMenu.h"
+#include <algorithm>
 
 class MainMenu : public Menu
 {
