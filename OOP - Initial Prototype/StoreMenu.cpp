@@ -5,7 +5,12 @@ StoreMenu::StoreMenu(const std::string& title, Application* app) : Menu(title, a
 	games.addInFront("Factorio");
 	games.addInFront("The Witness");
 	games.addInFront("INSIDE");
-	games.addInFront("Brothers");
+	games.addInFront("Braid");
+	games.addInFront("Limbo");
+	games.addInFront("Portal 2");
+	games.addInFront("Half Life 3");
+	games.addInFront("NUVAVAULT");
+	games.addInFront("Path");
 	Paint(); // required in constructor
 }
 
@@ -16,6 +21,8 @@ void StoreMenu::OutputOptions()
 		// adding 1 so the display is nicer for the user
 		Option(i + 1, games[i]);
 	}
+	Line();
+	Option('S', "Search by name");
 }
 
 bool StoreMenu::HandleChoice(char choice)
@@ -29,6 +36,17 @@ bool StoreMenu::HandleChoice(char choice)
 	{
 		BlockingMessage("Not implemented, press return to continue");
 		// go to game detail page
+	}
+	switch (choice)
+	{
+		case 'S':
+		{
+			auto t = app->GetStore().searchByName();
+				for (int i=0; i<t.length(); i++)
+				{
+					BlockingMessage("Game Found: " +t[i]);
+				}
+		}break;
 	}
 
 	return false;
