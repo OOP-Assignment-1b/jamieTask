@@ -259,6 +259,7 @@ void createHardcodedTestData(Application& app)
 //	}
 //}
 
+
 void main()
 {
 
@@ -268,9 +269,11 @@ void main()
 	//createHardcodedTestData(app);
 
 	app.Load();
+	app.LoginAccount("alice@shu.ac.uk", "password");
+
 
 	MainMenu("Test", &app);
 
-	app.Save();
+	//app.Save();
 
 }

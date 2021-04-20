@@ -26,16 +26,20 @@ bool Application::Load()
 
 	try {
 
-		std::ifstream myfile("data.txt");
+		std::ifstream data("data.txt");
 
-		if (myfile.is_open()) {
+		if (data.is_open()) {
 
 			std::string line;
 
 			int i = 0;
 			int y = 0;
 
-			while (getline(myfile, line))
+			std::string username = "";
+			std::string email = "";
+			std::string password = "";
+
+			while (getline(data, line))
 			{
 				if (line == "GAME") {
 
@@ -45,7 +49,7 @@ bool Application::Load()
 					int cost;
 
 					for (int i = 0; i < 5; i++) {
-						getline(myfile, line);
+						getline(data, line);
 						switch (i)
 						{
 
@@ -74,9 +78,6 @@ bool Application::Load()
 				else if (line == "ACCOUNT")
 				{
 
-					std::string email;
-					std::string password;
-
 					int day;
 					int month;
 					int year;
@@ -84,7 +85,7 @@ bool Application::Load()
 					int i;
 
 					for (int i = 0; i < 3; i++) {
-						getline(myfile, line);
+						getline(data, line);
 						switch (i)
 						{
 
@@ -123,7 +124,7 @@ bool Application::Load()
 					int minutes;
 
 					for (i = 0; i < 3; i++) {
-						getline(myfile, line);
+						getline(data, line);
 						switch (i)
 						{
 
@@ -154,15 +155,12 @@ bool Application::Load()
 				else if (line == "ACCOUNT-PLAYER")
 				{
 
-					std::string username;
-					std::string password;
-
 					int day;
 					int month;
 					int year;
 
 					for (i = 0; i < 3; i++) {
-						getline(myfile, line);
+						getline(data, line);
 						switch (i)
 						{
 
@@ -185,22 +183,20 @@ bool Application::Load()
 					}
 
 					Date date(day, month, year);
-					accounts[0]->users.addInFront(new Player(username, password, date));
+					User* user = new Player(username, password, date);
+					accounts[0]->users.addInFront(user);
 
 				}
 				else if (line == "ACCOUNT-ADMIN")
 				{
 
-					std::string username;
-					std::string password;
-
 					int day;
 					int month;
 					int year;
 
 					for (i = 0; i < 3; i++) {
 
-						getline(myfile, line);
+						getline(data, line);
 
 						switch (i)
 						{
@@ -226,13 +222,14 @@ bool Application::Load()
 					}
 
 					Date date(day, month, year);
-					accounts[0]->users.addInFront(new Admin(username, password, date));
+					User* user = new Admin(username, password, date);
+					accounts[0]->users.addInFront(user);
 
 				}
 
 			}
 
-			myfile.close();
+			data.close();
 			return true;
 
 		}
@@ -245,8 +242,55 @@ bool Application::Load()
 
 }
 
-void Application::Save()
+bool Application::Save()
 {
+
+	try {
+
+		std::ofstream data;
+		data.open("data2.txt", std::fstream::out | std::fstream::trunc);
+
+		if (data.is_open()) {
+
+			List<Game*> games = GetStore().getGames();
+
+			for (int i = 0; i < games.length(); i++) {
+				data << "GAME" << std::endl;
+				data << i + 1 << std::endl;
+				data << games[i]->GetName() << std::endl;
+				data << games[i]->GetDescription() << std::endl;
+				data << 0 << std::endl;
+				data << games[i]->GetCost() << std::endl;
+			}
+
+			for (int i = 0; i < accounts.length(); i++) {
+				data << "ACCOUNT" << std::endl;
+				for (int y = 0; y < accounts[i]->users.length() ;y++) {
+					/*
+					if (accounts[i]->users) {
+						data << "ACCOUNT-PLAYER" << std::endl;
+					}
+					else
+					{
+						data << "ACCOUNT-ADMIN" << std::endl;
+					}
+					data << accounts[i]->users[y]->GetUsername() << std::endl;
+					data << accounts[i]->users[y]->GetUsername() << std::endl;
+					*/
+
+				}
+
+			}
+
+		}
+
+		data.close();
+
+	}
+	catch (...) {
+
+	}
+
 }
 
 bool Application::IsUserLoggedIn() const

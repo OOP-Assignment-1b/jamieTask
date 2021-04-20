@@ -14,7 +14,7 @@ class Application
 		~Application();
 
 		bool Load();
-		void Save();
+		bool Save();
 
 		bool IsAccountLoggedIn() const;
 		bool IsUserLoggedIn() const;

@@ -17,3 +17,8 @@ Game Store::getAtIndex(const int index)
 {
 	return  *games[index];
 }
+
+List<Game*> Store::getGames()
+{
+	return List<Game*>(games);
+}
