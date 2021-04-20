@@ -11,7 +11,7 @@ Date::Date(const int& day, const int& month, const int& year):
 std::string Date::getCurrentDate() const
 {
 
-	return std::to_string(this->day) + "/" + std::to_string(this->month) + "/" + std::to_string(this->year);
+	return std::to_string(this->year) + "-" + std::to_string(this->month) + "-" + std::to_string(this->day);
 	
 }
 

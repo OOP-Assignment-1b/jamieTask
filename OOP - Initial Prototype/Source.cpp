@@ -5,7 +5,6 @@
 #include "User.h"
 #include "Player.h"
 #include "Admin.h"
-#include "Utils.h"
 
 #include "List.h"
 #include "Date.h"
@@ -18,6 +17,8 @@
 void createHardcodedTestData(Application& app)
 {
 	// Setup store with some games
+
+	
 	app.GetStore().addGame(new Game("The Witness", "Explore a nice island and solve puzzles.", 2999, 5));
 	app.GetStore().addGame(new Game("Braid", "A time twisting puzzle game.", 499, 15));
 	app.GetStore().addGame(new Game("Factorio", "Build a complicated factory in space.", 1599, 12));
@@ -30,23 +31,28 @@ void createHardcodedTestData(Application& app)
 
 	// Create some users
 	
-	Player* u1 = new Admin("Alice", "password", Date(02,02,2001));
-	Player* u2 = new Player("Bob", "password", Date(02, 02, 2001));
-	Player* u3 = new Player("Charlie", "password", Date(02, 02, 2001));
+	Player* u1 = new Admin("Alice", "password", Date(02,02,2001), "admin");
+	Player* u2 = new Player("Bob", "password", Date(02, 02, 2001), "user");
+	Player* u3 = new Player("Charlie", "password", Date(02, 02, 2001), "user");
 
+	
 	// With some games in their library
-	u1->library.addInFront(new LibraryItem(Date(17, 6, 2018), &app.GetStore().getAtIndex(7)));
-	u1->library.addInFront(new LibraryItem(Date(18, 6, 2018), &app.GetStore().getAtIndex(1)));
-	u2->library.addInFront(new LibraryItem(Date(19, 9, 2018), &app.GetStore().getAtIndex(2)));
-	u2->library.addInFront(new LibraryItem(Date(19, 9, 2018), &app.GetStore().getAtIndex(3)));
-	u3->library.addInFront(new LibraryItem(Date(24, 9, 2018), &app.GetStore().getAtIndex(3)));
-	u3->library.addInFront(new LibraryItem(Date(30, 9, 2018), &app.GetStore().getAtIndex(6)));
+	u1->addLibraryItem(new LibraryItem(Date(17, 6, 2018), app.GetStore().getAtIndex(7)));
+	u1->addLibraryItem(new LibraryItem(Date(18, 6, 2018), app.GetStore().getAtIndex(1)));
+	u2->addLibraryItem(new LibraryItem(Date(19, 9, 2018), app.GetStore().getAtIndex(2)));
+	u2->addLibraryItem(new LibraryItem(Date(19, 9, 2018), app.GetStore().getAtIndex(3)));
+	u3->addLibraryItem(new LibraryItem(Date(24, 9, 2018), app.GetStore().getAtIndex(3)));
+	u3->addLibraryItem(new LibraryItem(Date(30, 9, 2018), app.GetStore().getAtIndex(6)));
+
 
 	// Make an account and attach the users
-	app.accounts.addInFront(new Account("alice@shu.com", "password", Date(02, 02, 2001)));
-	app.accounts[0]->users.addInFront(u1);
-	app.accounts[0]->users.addInFront(u2);
-	app.accounts[0]->users.addInFront(u3);
+
+	app.addAccount(new Account("alice@shu.com", "password", Date(02, 02, 2001)));
+
+	app.getAccount(0)->users.addInFront(u2);
+	app.getAccount(0)->users.addInFront(u3);
+	app.getAccount(0)->users.addInFront(u1);
+
 
 	// TODO: We need a login menu for accounts, for now we log in the only account
 	app.LoginAccount("alice@shu.ac.uk", "password");
@@ -259,20 +265,21 @@ void createHardcodedTestData(Application& app)
 //	}
 //}
 
+
 void main()
 {
 
 	Application app;
 	
 	// TODO: Remove call to dummy data, instead use Load and Save
-	createHardcodedTestData(app);
+	//createHardcodedTestData(app);
 
+	app.Load();
+	app.LoginAccount("alice@shu.ac.uk", "password");
 
-	// TODO: app.Load();
 
 	MainMenu("Test", &app);
 
-	
+	//app.Save();
 
-	// TODO: app.Save();
 }

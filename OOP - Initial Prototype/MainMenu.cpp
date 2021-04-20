@@ -49,9 +49,9 @@ bool MainMenu::HandleChoice(char choice)
 	{
 		if (app->IsUserLoggedIn())
 		{
-			BlockingMessage("Not implemented, press return to continue");
-			// this needs to go to a profile page - similar to StoreMenu
-			// notice the if - this only works if somebody is logged in
+			auto title = app->GetCurrentUser()->GetUsername() + "'s Profile";
+			std::transform(title.begin(), title.end(), title.begin(), ::toupper); // Converts title to uppercase
+			ProfileMenu(title, app); // Creates a Profile Menu with the current users name as the title
 		}
 	} break;
 	}

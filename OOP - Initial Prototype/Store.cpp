@@ -33,3 +33,8 @@ List<std::string> Store::searchByName()
 	}
 	return temp;
 }
+
+List<Game*> Store::getGames()
+{
+	return List<Game*>(games);
+}
