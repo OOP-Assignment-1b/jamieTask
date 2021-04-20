@@ -265,14 +265,12 @@ void main()
 	Application app;
 	
 	// TODO: Remove call to dummy data, instead use Load and Save
-	createHardcodedTestData(app);
+	//createHardcodedTestData(app);
 
-
-	// TODO: app.Load();
+	app.Load();
 
 	MainMenu("Test", &app);
 
-	
+	app.Save();
 
-	// TODO: app.Save();
 }

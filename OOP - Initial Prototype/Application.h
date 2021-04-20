@@ -2,6 +2,8 @@
 
 #include "Account.h"
 #include "User.h"
+#include "Player.h"
+#include "Admin.h"
 #include "Store.h"
 #include "List.h"
 
@@ -10,6 +12,9 @@ class Application
 	public:
 		Application();
 		~Application();
+
+		bool Load();
+		void Save();
 
 		bool IsAccountLoggedIn() const;
 		bool IsUserLoggedIn() const;
