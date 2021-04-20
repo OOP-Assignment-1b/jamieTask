@@ -148,9 +148,11 @@ bool Application::Load()
 						}
 					}
 
-					Date date(day, month, year);
+					Date date = Date(day, month, year);
 					Player* user = dynamic_cast<Player*>(accounts[0]->users[0]);
-					user->library.addInFront(new LibraryItem(date, new Game(GetStore().getAtIndex(id))));
+					Game game = Game(GetStore().getAtIndex(id));
+					LibraryItem* iteam = new LibraryItem(date, game);
+					user->addLibraryItem(iteam);
 				}
 				else if (line == "ACCOUNT-PLAYER")
 				{
@@ -183,7 +185,7 @@ bool Application::Load()
 					}
 
 					Date date(day, month, year);
-					User* user = new Player(username, password, date);
+					User* user = new Player(username, password, date, "user");
 					accounts[0]->users.addInFront(user);
 
 				}
@@ -222,7 +224,7 @@ bool Application::Load()
 					}
 
 					Date date(day, month, year);
-					User* user = new Admin(username, password, date);
+					User* user = new Admin(username, password, date, "admin");
 					accounts[0]->users.addInFront(user);
 
 				}
