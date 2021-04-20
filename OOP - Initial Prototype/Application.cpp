@@ -291,6 +291,7 @@ bool Application::Save()
 
 	}
 
+	return false;
 }
 
 bool Application::IsUserLoggedIn() const
