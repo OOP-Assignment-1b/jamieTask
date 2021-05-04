@@ -205,9 +205,9 @@ bool Application::Load()
 
 						case 0:
 
-							day = std::stoi(line.substr(0, line.find('-')));
+							year = std::stoi(line.substr(0, line.find('-')));
 							month = std::stoi(line.substr(5, line.find('-')));
-							year = std::stoi(line.substr(8, line.find('-')));
+							day = std::stoi(line.substr(8, line.find('-')));
 							break;
 						case 1:
 							username = line;

@@ -2,15 +2,12 @@
 
 StoreMenu::StoreMenu(const std::string& title, Application* app) : Menu(title, app)
 {
-	games.addInFront("Factorio");
-	games.addInFront("The Witness");
-	games.addInFront("INSIDE");
-	games.addInFront("Braid");
-	games.addInFront("Limbo");
-	games.addInFront("Portal 2");
-	games.addInFront("Half Life 3");
-	games.addInFront("NUVAVAULT");
-	games.addInFront("Path");
+
+	auto storeGames = app->GetStore().getGames();
+	for (int i = 0; i < storeGames.length(); i++) {
+		games.addInFront(storeGames[i]->GetName());
+	}
+
 	Paint(); // required in constructor
 }
 
