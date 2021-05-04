@@ -36,12 +36,22 @@ const int Utils::getDay() {
     return day;
 }
 
-std::string Utils::toLower(std::string& string)
+std::string Utils::toLower(const std::string& string)
 {
     std::string c;
     for(int i=0; i < string.length(); i++)
     {
         c+=tolower(string[i]);
+    }
+    return c;
+}
+
+std::string Utils::toUpper(const std::string& string)
+{
+    std::string c;
+    for (int i = 0; i < string.length(); i++)
+    {
+        c += toupper(string[i]);
     }
     return c;
 }

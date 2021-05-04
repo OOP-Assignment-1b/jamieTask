@@ -26,6 +26,7 @@ class Application
 		bool LoginAccount(const std::string& email, const std::string& password);
 		bool LoginUser(const std::string& username, const std::string& password);
 		void LogoutUser();
+		void LogoutAccount();
 
 		void addAccount(Account* account);
 		Account* getAccount(const int& index) const;

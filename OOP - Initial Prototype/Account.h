@@ -10,6 +10,8 @@ class Account
 	public:
 		Account(const std::string&, const std::string&, const Date&);
 		~Account();
+		const std::string& GetEmail() const;
+		const std::string& GetPassword() const;
 		List<User*> users;
 	private:
 		std::string email;

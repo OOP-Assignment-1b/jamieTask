@@ -9,6 +9,7 @@ class User
 		User(const std::string&, const std::string&, const Date&, const std::string& role);
 		virtual ~User();
 		const std::string& GetUsername() const;
+		const std::string& GetPassword() const;
 		std::string getRole() const;
 
 	private:

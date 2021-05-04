@@ -277,8 +277,8 @@ void main()
 	app.Load();
 	app.LoginAccount("alice@shu.ac.uk", "password");
 
-
-	MainMenu("Test", &app);
+	
+	MainMenu("Main Menu", &app);
 
 	//app.Save();
 

@@ -9,15 +9,25 @@ void MainMenu::OutputOptions()
 {
 	Option('S', "Browse Store");
 
-	if (app->IsUserLoggedIn())
+	if (app->IsAccountLoggedIn())
 	{
-		Option('P', "View Profile");
-		Option('L', "Logout");
+		if (app->IsUserLoggedIn()) {
+			Option('P', "View Profile");
+			Option('L', "Logout User");
+		}
+		else
+		{
+			Option('L', "Login User");
+		}
+
+		Option('O', "Logout Account");
 	}
 	else
 	{
-		Option('L', "Login");
+		Option('L', "Login Account");
 	}
+
+
 }
 
 bool MainMenu::HandleChoice(char choice)
@@ -30,21 +40,36 @@ bool MainMenu::HandleChoice(char choice)
 	} break;
 	case 'L':
 	{
-		if (app->IsUserLoggedIn())
+		if (app->IsAccountLoggedIn() == false)
 		{
+			LoginAccount("ACCOUNT LOGIN", app);
+		}
+		else if (app->IsAccountLoggedIn())
+		{
+			if (app->IsUserLoggedIn()) {
+				std::string answer = Question("Are you sure?");
+				if (answer == "y" || answer == "Y")
+				{
+					app->LogoutUser();
+				}
+			}
+			else {
+				LoginUser("USER LOGIN", app);
+
+			}
+		}
+	} break;
+	case 'O':
+	{
+		if (app->IsAccountLoggedIn()) {
 			std::string answer = Question("Are you sure?");
 			if (answer == "y" || answer == "Y")
 			{
-				app->LogoutUser();
+				app->LogoutAccount();
 			}
 		}
-		else
-		{
-			// this would need to go to a LoginMenu - similar to StoreMenu
-			// instead we just set logged in to true on the main app object
-			app->LoginUser("Adam","Banana");
-		}
-	} break;
+
+	}break;
 	case 'P':
 	{
 		if (app->IsUserLoggedIn())
