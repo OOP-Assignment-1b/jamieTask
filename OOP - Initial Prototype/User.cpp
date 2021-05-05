@@ -23,3 +23,30 @@ std::string User::getRole() const
 {
 	return this->role;
 }
+
+void User::setCredits(const int& amount)
+{
+	if (amount >= 0) {
+		this->credits = amount;
+	}
+}
+
+void User::addCredits(const int& amount)
+{
+	this->credits += amount;
+}
+
+void User::removeCredits(const int& amount)
+{
+	if (this->credits > amount) {
+		this->credits -= amount;
+	}
+}
+
+int User::getCredits() const
+{
+	return this->credits;
+}
+
+
+

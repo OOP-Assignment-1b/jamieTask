@@ -19,7 +19,7 @@ void ProfileMenu::OutputOptions()
 		Option('D', "Delete User");
 		Line();
 	}
-	Line("Credits: 10.00");
+	Line("Credits: "+std::to_string(player->getCredits()));
 	Option('I', "Purchase 1   credit");
 	Option('O', "Purchase 10  credits");
 	Option('P', "Purchase 100 credits");
@@ -54,14 +54,15 @@ bool ProfileMenu::HandleChoice(char choice)
 		{
 		case 'I':
 		{
+			player->addCredits(1);
 		} break;
 		case 'O':
 		{
-
+			player->addCredits(10);
 		} break;
 		case 'P':
 		{
-
+			player->addCredits(100);
 		} break;
 
 		case 'A':
