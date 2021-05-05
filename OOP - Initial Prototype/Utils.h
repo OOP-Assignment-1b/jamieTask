@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <time.h>
 #include <algorithm>
-#include <iomanip>
-#include <sstream>
 
 class Utils
 {
@@ -19,9 +17,6 @@ class Utils
     static std::string toLower(const std::string& string);
 
     static std::string toUpper(const std::string& string);
-    static void Utils::recursiveToUpper(char str[]);
-
-    static int getRandomNumber(const int& max, const int& min);
-
-    static std::string formatPlayTime(double& time, const std::string& name);
+    static std::string Utils::recursiveToUpper(std::string str);
+    
 };
