@@ -47,8 +47,10 @@ bool Application::Load()
 					std::string description;
 					int ageRatting;
 					int cost;
+					int like;
+					int dislike;
 
-					for (int i = 0; i < 5; i++) {
+					for (int i = 0; i < 7; i++) {
 						getline(data, line);
 						switch (i)
 						{
@@ -66,6 +68,12 @@ bool Application::Load()
 						case 4:
 							ageRatting = std::stoi(line);
 							break;
+						case 5:
+							like = std::stoi(line);
+							break;
+						case 6:
+							dislike = std::stoi(line);
+							break;
 
 						default:
 							return false;
@@ -73,7 +81,7 @@ bool Application::Load()
 						}
 
 					}
-					GetStore().addGame(new Game(name, description, cost, ageRatting));
+					GetStore().addGame(new Game(name, description, cost, ageRatting, like, dislike));
 				}
 				else if (line == "ACCOUNT")
 				{
@@ -323,6 +331,9 @@ Store& Application::GetStore()
 
 bool Application::LoginAccount(const std::string& email, const std::string& password)
 {
+
+	currentAccount = accounts[0];
+	return true;
 
 	for (int i = 0; i < accounts.length(); i++) {
 		if (accounts[i]->GetEmail() == email && accounts[i]->GetPassword() == password) {

@@ -5,11 +5,12 @@
 class Game
 {
 	public:
-		Game(const std::string&, const std::string&,const int&,const int&);
+		Game(const std::string&, const std::string&,const int&,const int&, const int&, const int&);
 		~Game();
 
 		const std::string& GetName() const;
 		const std::string& GetDescription() const;
+		const int& GetRating() const;
 		
 		void setDiscountAmount(const int& discount);
 
@@ -20,4 +21,6 @@ class Game
 		int cost;
 		int ageRating;
 		int discount = 0;
+		int likes;
+		int dislikes;
 };

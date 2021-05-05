@@ -13,10 +13,10 @@ StoreMenu::StoreMenu(const std::string& title, Application* app) : Menu(title, a
 
 void StoreMenu::OutputOptions()
 {
-	for (int i = 0; i < games.length(); i++)
+	for (int i = 0; i < app->GetStore().getGames().length(); i++)
 	{
 		// adding 1 so the display is nicer for the user
-		Option(i + 1, games[i]);
+		Option(i + 1, app->GetStore().getGames()[i]->GetName() + "		| User Rating: " + std::to_string(app->GetStore().getGames()[i]->GetRating()) + '%');
 	}
 	Line();
 	Option('S', "Search by name");

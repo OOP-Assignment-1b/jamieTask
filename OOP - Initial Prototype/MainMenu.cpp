@@ -74,9 +74,7 @@ bool MainMenu::HandleChoice(char choice)
 	{
 		if (app->IsUserLoggedIn())
 		{
-			auto title = app->GetCurrentUser()->GetUsername() + "'s Profile";
-			std::transform(title.begin(), title.end(), title.begin(), ::toupper); // Converts title to uppercase
-			ProfileMenu(title, app); // Creates a Profile Menu with the current users name as the title
+			ProfileMenu(Utils::toUpper(app->GetCurrentUser()->GetUsername() + "'s Profile"), app); // Creates a Profile Menu with the current users name as the title
 		}
 	} break;
 	}

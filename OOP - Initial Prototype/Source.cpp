@@ -19,15 +19,15 @@ void createHardcodedTestData(Application& app)
 	// Setup store with some games
 
 	
-	app.GetStore().addGame(new Game("The Witness", "Explore a nice island and solve puzzles.", 2999, 5));
-	app.GetStore().addGame(new Game("Braid", "A time twisting puzzle game.", 499, 15));
-	app.GetStore().addGame(new Game("Factorio", "Build a complicated factory in space.", 1599, 12));
-	app.GetStore().addGame(new Game("LIMBO", "Watch out for that spider.", 299, 12));
-	app.GetStore().addGame(new Game("INSIDE", "What are those scientists even doing?!", 1299, 15));
-	app.GetStore().addGame(new Game("Portal 2", "Play around with physics. Shoot the moon.", 1999, 15));
-	app.GetStore().addGame(new Game("Half Life 3", "It's never coming out.", 5999, 18));
-	app.GetStore().addGame(new Game("NUVAVULT", "A game where 2D and 3D collide.", 299, 18));
-	app.GetStore().addGame(new Game("Path", "Draw nice shapes between 2 big dots.", 299, 15));
+	app.GetStore().addGame(new Game("The Witness", "Explore a nice island and solve puzzles.", 2999, 5, 0, 0));
+	app.GetStore().addGame(new Game("Braid", "A time twisting puzzle game.", 499, 15, 0, 0));
+	app.GetStore().addGame(new Game("Factorio", "Build a complicated factory in space.", 1599, 12, 0, 0));
+	app.GetStore().addGame(new Game("LIMBO", "Watch out for that spider.", 299, 12, 0, 0));
+	app.GetStore().addGame(new Game("INSIDE", "What are those scientists even doing?!", 1299, 15, 0, 0));
+	app.GetStore().addGame(new Game("Portal 2", "Play around with physics. Shoot the moon.", 1999, 15, 0, 0));
+	app.GetStore().addGame(new Game("Half Life 3", "It's never coming out.", 5999, 18, 0, 0));
+	app.GetStore().addGame(new Game("NUVAVULT", "A game where 2D and 3D collide.", 299, 18, 0, 0));
+	app.GetStore().addGame(new Game("Path", "Draw nice shapes between 2 big dots.", 299, 15, 0, 0));
 
 	// Create some users
 	
