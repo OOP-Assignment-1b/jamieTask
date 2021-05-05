@@ -7,6 +7,7 @@ MainMenu::MainMenu(const std::string& title, Application* app) : Menu(title, app
 
 void MainMenu::OutputOptions()
 {
+
 	Option('S', "Browse Store");
 
 	if (app->IsAccountLoggedIn())

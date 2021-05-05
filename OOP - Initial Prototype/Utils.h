@@ -17,6 +17,7 @@ class Utils
     static std::string toLower(const std::string& string);
 
     static std::string toUpper(const std::string& string);
+    static void Utils::recursiveToUpper(char str[]);
     
     // TODO: 2 versions of ToUpper
 };

@@ -55,3 +55,13 @@ std::string Utils::toUpper(const std::string& string)
     }
     return c;
 }
+
+void Utils::recursiveToUpper (char str[])
+{
+
+    if (str[0] == '\0') return;
+    str[0] = toupper(str[0]);
+    recursiveToUpper(str + 1);
+
+}
+

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
 #include "LibraryItem.h"
 #include "User.h"
 #include "List.h"
