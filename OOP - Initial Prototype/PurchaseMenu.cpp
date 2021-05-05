@@ -19,7 +19,8 @@ void PurchaseMenu::OutputOptions()
 	if (app->IsUserLoggedIn())
 	{
 		std::stringstream formatStringTwo;
-		formatStringTwo << "Credits: " << std::setprecision(15) << app->GetCurrentUser()->getCredits()/100;
+		double credits = app->GetCurrentUser()->getCredits() / 100.00f;
+		formatStringTwo << "Credits: " << std::setprecision(5) << credits;
 		Line(formatStringTwo.str());
 		Line();
 		bool hasGame = false;
