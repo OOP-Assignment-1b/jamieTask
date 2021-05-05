@@ -13,7 +13,7 @@ class Account
 		const std::string& GetEmail() const;
 		const std::string& GetPassword() const;
 		const Date& GetDateCreated() const;
-		List<User*> getAllUsers();
+		List<User*>& getAllUsers();
 		void addUser(Player* user);
 		void addUser(User* user);
 	private:

@@ -156,6 +156,7 @@ bool ProfileMenu::HandleChoice(char choice)
 					removed = !removed;
 					app->GetCurrentAccount()->getAllUsers().deleteOne(app->GetCurrentAccount()->getAllUsers()[i]);
 					BlockingMessage("Removed Account: " + users[i]->GetUsername());
+					return false;
 				}
 				
 			}

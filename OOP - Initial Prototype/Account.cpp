@@ -28,9 +28,9 @@ const Date& Account::GetDateCreated() const
 	return created;
 }
 
-List<User*> Account::getAllUsers()
+List<User*>& Account::getAllUsers()
 {
-	return this->users;
+	return users;
 }
 
 void Account::addUser(Player* user)
