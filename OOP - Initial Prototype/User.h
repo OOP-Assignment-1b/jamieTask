@@ -10,7 +10,8 @@ class User
 		virtual ~User();
 		const std::string& GetUsername() const;
 		const std::string& GetPassword() const;
-		std::string getRole() const;
+		const Date& GetDateCreated() const;
+		const std::string getRole() const;
 
 	private:
 		std::string username;

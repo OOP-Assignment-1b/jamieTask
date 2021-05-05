@@ -10,7 +10,7 @@ public:
 
 	Date(const int& date, const int& month, const int& year);
 	
-	std::string getCurrentDate() const;
+	std::string getDate() const;
 	std::string getDay() const;
 	std::string getMonth() const;
 	std::string getYear() const;
