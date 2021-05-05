@@ -11,18 +11,28 @@ Date::Date(const int& day, const int& month, const int& year):
 std::string Date::getDate() const
 {
 
-	return std::to_string(this->year) + "-" + std::to_string(this->month) + "-" + std::to_string(this->day);
+	return getYear() + "-" + getMonth() + "-" + getDay();
 	
 }
 
 std::string Date::getDay() const
 {
-	return std::to_string(this->day);
+	std::string dayString = "";
+	if (day < 10) dayString = "0";
+
+	dayString += std::to_string(this->month);
+
+	return dayString;
 }
 
 std::string Date::getMonth() const
 {
-	return std::to_string(this->month);
+	std::string monthString = "";
+	if (month < 10) monthString = "0";
+
+	monthString += std::to_string(this->month);
+
+	return monthString;
 }
 
 std::string Date::getYear() const
