@@ -20,7 +20,8 @@ void ProfileMenu::OutputOptions()
 		Line();
 	}
 	std::stringstream formatStringTwo;
-	formatStringTwo << "Credits: " << std::setprecision(7) << app->GetCurrentUser()->getCredits() / 100;
+	double credits = app->GetCurrentUser()->getCredits() / 100.00f;
+	formatStringTwo << "Credits: " << std::setprecision(5) << credits;
 	Line(formatStringTwo.str());
 	Option('I', "Purchase 1   credit");
 	Option('O', "Purchase 10  credits");
