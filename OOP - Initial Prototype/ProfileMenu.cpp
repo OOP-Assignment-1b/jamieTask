@@ -35,8 +35,27 @@ void ProfileMenu::OutputOptions()
 
 	for (int i = 0; i < temp.length(); i++)
 	{
-		std::string t = temp[i]->getGame().GetName() + "  (1.5 hours)";
-		Option(i + 1, t);
+		std::stringstream formatStringThree;
+		double playTimeHours = temp[i]->GetPlaytime() / 60.00f;
+
+		std::string suffix;
+
+		if (playTimeHours < 1)
+		{
+			playTimeHours *= 60;
+			suffix = " Minutes)";
+		} else
+		{
+			suffix = " Hours)";
+		}
+
+		if (playTimeHours >= 5)
+		{
+			playTimeHours = (int)playTimeHours;
+		}
+		
+		formatStringThree << std::left << std::setfill(' ') << std::setw(15) << temp[i]->getGame().GetName() << std::setprecision(2) << '(' << playTimeHours << suffix;
+		Option(i + 1, formatStringThree.str());
 	}
 
 }
@@ -46,10 +65,14 @@ bool ProfileMenu::HandleChoice(char choice)
 	
 	Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
 	int index = choice - '1';
+	auto list = player->getAllItems();
+	auto games = app->GetStore().getGames();
 
-	if (index >= 0 && index < player->getAllItems().length())
+	
+	if (index >= 0 && index < list.length())
 	{
-
+		
+		list[index]->AddPlaytime(rand() % 50 + 10);
 	}
 	else {
 
