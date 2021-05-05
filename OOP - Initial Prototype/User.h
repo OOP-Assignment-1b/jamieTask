@@ -13,9 +13,16 @@ class User
 		const Date& GetDateCreated() const;
 		const std::string getRole() const;
 
+		void setCredits(const int& amount);
+		void addCredits(const int& amount);
+		void removeCredits(const int& amount);
+		int getCredits() const;
+
 	private:
 		std::string username;
 		std::string password;
 		const Date created;
 		const std::string role;
+
+		int credits;
 };
