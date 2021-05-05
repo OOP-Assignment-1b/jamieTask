@@ -18,8 +18,30 @@ void PurchaseMenu::OutputOptions()
 	Line(formatString.str());
 	if (app->IsUserLoggedIn())
 	{
-		Line("Credits: " + std::to_string(app->GetCurrentUser()->getCredits()));
+		std::stringstream formatStringTwo;
+		formatStringTwo << "Credits: " << std::setprecision(15) << app->GetCurrentUser()->getCredits()/100;
+		Line(formatStringTwo.str());
+		Line();
+		bool hasGame = false;
+		Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
+		auto games = player->getAllItems();
+
+		for (int i = 0; i < games.length(); i++)
+		{
+			if (games[i]->getGame().GetName() == app->GetStore().getGames()[index]->GetName())
+			{
+				hasGame = !hasGame;
+				Line("You own this game!");
+				Line();
+				Line("Purchased: " + games[i]->GetPurchasedDate().getDate());
+				Line("Playtime: " + std::to_string(games[i]->GetPlaytime()));
+			}
+		}
+		if(!hasGame){
+			Option('P', "Purchase " + game->GetName());
+		}
 	}
+	
 }
 
 
@@ -27,7 +49,25 @@ void PurchaseMenu::OutputOptions()
 bool PurchaseMenu::HandleChoice(char choice)
 {
 
+	if (app->IsUserLoggedIn())
+	{
+		switch (choice)
+		{
 
+		case 'P': {
+				auto game = app->GetStore().getGames()[this->index];
+				Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
+				if (player->getCredits() >= game->GetCost())
+				{
+					player->removeCredits(game->GetCost());
+					player->addLibraryItem(new LibraryItem(Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), *game, 0));
+				}
+			
+		}break;
+		}
+
+	}
+	
 
 	return false;
 }

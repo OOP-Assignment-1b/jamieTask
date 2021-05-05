@@ -19,7 +19,9 @@ void ProfileMenu::OutputOptions()
 		Option('D', "Delete User");
 		Line();
 	}
-	Line("Credits: "+std::to_string(player->getCredits()));
+	std::stringstream formatStringTwo;
+	formatStringTwo << "Credits: " << std::setprecision(7) << app->GetCurrentUser()->getCredits() / 100;
+	Line(formatStringTwo.str());
 	Option('I', "Purchase 1   credit");
 	Option('O', "Purchase 10  credits");
 	Option('P', "Purchase 100 credits");
@@ -54,21 +56,21 @@ bool ProfileMenu::HandleChoice(char choice)
 		{
 		case 'I':
 		{
-			player->addCredits(1);
+			player->addCredits(100);
 		} break;
 		case 'O':
 		{
-			player->addCredits(10);
+			player->addCredits(1000);
 		} break;
 		case 'P':
 		{
-			player->addCredits(100);
+			player->addCredits(10000);
 		} break;
 
 		case 'A':
 		{
 			std::string role = Question("What's the role of the user");
-			if (role == "admin" || role == "user")
+			if (role == "ADMIN" || role == "PLAYER")
 			{
 				std::string username = Question("What's the name of the user");
 				if (std::all_of(username.begin(), username.end(), isspace))
@@ -120,20 +122,20 @@ bool ProfileMenu::HandleChoice(char choice)
 					BlockingMessage("No spaces allowed for password");
 					break;
 				}
-				if (role == "admin")
+				if (role == "ADMIN")
 				{
-					Player* admin = new Admin(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "admin");
+					Player* admin = new Admin(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "ADMIN");
 					app->GetCurrentAccount()->users.addInFront(admin);
 				} else
 				{
-					Player* user = new Player(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "user");
+					Player* user = new Player(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "PLAYER");
 					app->GetCurrentAccount()->users.addInFront(user);
 				}
 				BlockingMessage("Account Created!");
 			}
 			else
 			{
-				BlockingMessage("Type can only be [Admin] or [User]");
+				BlockingMessage("Type can only be [ADMIN] or [PLAYER]");
 			}
 
 		}break;

@@ -5,7 +5,8 @@
 #include "Admin.h"
 #include "Player.h"
 #include "Utils.h"
-
+#include <iomanip>
+#include <sstream>
 
 class ProfileMenu : public Menu
 
