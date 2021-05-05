@@ -65,3 +65,36 @@ void Utils::recursiveToUpper (char str[])
 
 }
 
+int Utils::getRandomNumber(const int& max, const int& min)
+{
+
+    return rand() % (max - 10) + min;
+	
+}
+
+std::string Utils::formatPlayTime(double& time, const std::string& name)
+{
+    std::string suffix;
+
+    if (time < 1)
+    {
+        time *= 60;
+        suffix = " Minutes)";
+    }
+    else
+    {
+        suffix = " Hours)";
+    }
+
+    if (time >= 5)
+    {
+        time = static_cast<int>(time);
+    }
+    std::stringstream formatStringThree;
+    formatStringThree << std::left << std::setfill(' ') << std::setw(15) << name << std::setprecision(2) << '(' << time << suffix;
+    return formatStringThree.str();
+
+	
+}
+
+

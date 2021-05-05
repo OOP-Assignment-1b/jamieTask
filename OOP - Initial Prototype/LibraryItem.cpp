@@ -16,7 +16,7 @@ void LibraryItem::SetPlaytime(const int& playtime) {
 }
 
 void LibraryItem::AddPlaytime(const int& playtime) {
-	this->playtime =+ playtime;
+	this->playtime += playtime;
 }
 
 const int& LibraryItem::GetPlaytime() const

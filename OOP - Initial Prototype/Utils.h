@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 class Utils
 {
@@ -18,6 +20,8 @@ class Utils
 
     static std::string toUpper(const std::string& string);
     static void Utils::recursiveToUpper(char str[]);
-    
-    // TODO: 2 versions of ToUpper
+
+    static int getRandomNumber(const int& max, const int& min);
+
+    static std::string formatPlayTime(double& time, const std::string& name);
 };
