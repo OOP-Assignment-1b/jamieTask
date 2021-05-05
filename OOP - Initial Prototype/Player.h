@@ -14,7 +14,7 @@ class Player : public User
 		Player(const std::string&, const std::string&, const Date&, const std::string& role);
 		~Player();
 		void addLibraryItem(LibraryItem* item);
-		List<LibraryItem*> getAllItems() const;
+		std::vector<LibraryItem*> getAllItems() const;
 	private:
-		List<LibraryItem*> library;
+		std::vector<LibraryItem*> library;
 };

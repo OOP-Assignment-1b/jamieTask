@@ -12,7 +12,7 @@ void ProfileMenu::OutputOptions()
 {
 	Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
 
-	if (player->getRole() == "admin")
+	if (player->getRole() == "ADMIN")
 	{
 		Line("[Admin]");
 		Option('A', "Add User");
@@ -31,9 +31,9 @@ void ProfileMenu::OutputOptions()
 
 
 
-	List<LibraryItem*> temp = player->getAllItems();
+	std::vector<LibraryItem*> temp = player->getAllItems();
 
-	for (int i = 0; i < temp.length(); i++)
+	for (int i = 0; i < temp.size(); i++)
 	{
 		double playTimeHours = temp[i]->GetPlaytime() / 60.00f;
 		Option(i + 1, Utils::formatPlayTime(playTimeHours, temp[i]->getGame().GetName()));
@@ -50,7 +50,7 @@ bool ProfileMenu::HandleChoice(char choice)
 	auto games = app->GetStore().getGames();
 
 	
-	if (index >= 0 && index < list.length())
+	if (index >= 0 && index < list.size())
 	{
 		
 		list[index]->AddPlaytime(Utils::getRandomNumber(60,10));
@@ -97,7 +97,7 @@ bool ProfileMenu::HandleChoice(char choice)
 					break;
 				}
 				bool inList = false;
-				List<User*> userList = app->GetCurrentAccount()->users;
+				List<User*> userList = app->GetCurrentAccount()->getAllUsers();
 				for (int i=0; i < userList.length(); i++)
 				{
 					std::string usernameInList = userList[i]->GetUsername();
@@ -130,11 +130,11 @@ bool ProfileMenu::HandleChoice(char choice)
 				if (role == "ADMIN")
 				{
 					Player* admin = new Admin(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "ADMIN");
-					app->GetCurrentAccount()->users.addInFront(admin);
+					app->GetCurrentAccount()->addUser(admin);
 				} else
 				{
 					Player* user = new Player(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "PLAYER");
-					app->GetCurrentAccount()->users.addInFront(user);
+					app->GetCurrentAccount()->addUser(user);
 				}
 				BlockingMessage("Account Created!");
 			}
@@ -147,16 +147,17 @@ bool ProfileMenu::HandleChoice(char choice)
 		case'D':
 		{
 			std::string username = Question("What's the name of the user");
-			List<User*> users = app->GetCurrentAccount()->users;
+			List<User*> users = app->GetCurrentAccount()->getAllUsers();
 			bool removed = false;
 			for (int i=0; i < users.length(); i++)
 			{
-				if (users[i]->GetUsername() == username)
+				if (Utils::recursiveToUpper(users[i]->GetUsername()) == Utils::recursiveToUpper(username))
 				{
 					removed = !removed;
+					app->GetCurrentAccount()->getAllUsers().deleteOne(app->GetCurrentAccount()->getAllUsers()[i]);
 					BlockingMessage("Removed Account: " + users[i]->GetUsername());
-					users.deleteOne(users[i]);
 				}
+				
 			}
 			if (!removed)
 			{

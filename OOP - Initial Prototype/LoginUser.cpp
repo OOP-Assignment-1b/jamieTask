@@ -8,7 +8,7 @@ LoginUser::LoginUser(const std::string& title, Application* app) : Menu(title, a
 void LoginUser::OutputOptions()
 {
 
-	auto users = app->GetCurrentAccount()->users;
+	auto users = app->GetCurrentAccount()->getAllUsers();
 	if (users.length() > 0) {
 		for (int i = 0; i < users.length(); i++) {
 			Option(i + 1, users[i]->GetUsername());
@@ -26,10 +26,10 @@ bool LoginUser::HandleChoice(char choice)
 	int index = choice - '1';
 
 	
-	if (index >= 0 && index < app->GetCurrentAccount()->users.length())
+	if (index >= 0 && index < app->GetCurrentAccount()->getAllUsers().length())
 	{
 		auto password = Question("Enter Password");
-		if (app->LoginUser(app->GetCurrentAccount()->users[index]->GetUsername(), password)) {
+		if (app->LoginUser(app->GetCurrentAccount()->getAllUsers()[index]->GetUsername(), password)) {
 			return true;
 		}
 		else

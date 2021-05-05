@@ -27,3 +27,20 @@ const Date& Account::GetDateCreated() const
 {
 	return created;
 }
+
+List<User*> Account::getAllUsers()
+{
+	return this->users;
+}
+
+void Account::addUser(Player* user)
+{
+	this->users.addAtEnd(user);
+}
+
+void Account::addUser(User* user)
+{
+	this->users.addAtEnd(user);
+}
+
+

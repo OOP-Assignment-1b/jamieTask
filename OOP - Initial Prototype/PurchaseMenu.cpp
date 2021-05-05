@@ -27,7 +27,7 @@ void PurchaseMenu::OutputOptions()
 		Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
 		auto games = player->getAllItems();
 
-		for (int i = 0; i < games.length(); i++)
+		for (int i = 0; i < games.size(); i++)
 		{
 			if (games[i]->getGame().GetName() == app->GetStore().getGames()[index]->GetName())
 			{

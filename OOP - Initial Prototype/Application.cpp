@@ -157,7 +157,7 @@ bool Application::Load()
 					}
 
 					Date date = Date(day, month, year);
-					Player* user = dynamic_cast<Player*>(accounts[0]->users.last());
+					Player* user = dynamic_cast<Player*>(accounts[0]->getAllUsers().last());
 					Game game = Game(GetStore().getAtIndex(id));
 					LibraryItem* iteam = new LibraryItem(date, game, minutes);
 					user->addLibraryItem(iteam);
@@ -194,7 +194,7 @@ bool Application::Load()
 					Date date(day, month, year);
 					User* user = new Player(username, password, date, "PLAYER");
 					user->setCredits(credit);
-					accounts[0]->users.addAtEnd(user);
+					accounts[0]->addUser(user);
 
 				}
 				else if (line == "ACCOUNT-ADMIN")
@@ -233,7 +233,7 @@ bool Application::Load()
 					Date date(day, month, year);
 					User* user = new Admin(username, password, date, "ADMIN");
 					user->setCredits(credit);
-					accounts[0]->users.addAtEnd(user);
+					accounts[0]->addUser(user);
 
 				}
 
@@ -282,17 +282,17 @@ bool Application::Save()
 					data << accounts[i]->GetDateCreated().getDate() << std::endl;
 					data << accounts[i]->GetEmail() << std::endl;
 					data << accounts[i]->GetPassword() << std::endl;
-					if (accounts[i]->users.length() > 0) {
-						List<User*> users = accounts[i]->users;
+					if (accounts[i]->getAllUsers().length() > 0) {
+						List<User*> users = accounts[i]->getAllUsers();
 						for (int y = 0; y < users.length(); y++) {
 							data << "ACCOUNT-" + users[y]->getRole() << std::endl;
 							data << users[y]->GetDateCreated().getDate() << std::endl;
 							data << users[y]->GetUsername() << std::endl;
 							data << users[y]->GetPassword() << std::endl;
 							data << std::to_string(users[y]->getCredits()) << std::endl;
-							if (dynamic_cast<Player*>(accounts[i]->users[y])->getAllItems().length() > 0) {
-								List<LibraryItem*> items = dynamic_cast<Player*>(accounts[i]->users[y])->getAllItems();
-								for (int j = 0; j < items.length(); j++) {
+							if (dynamic_cast<Player*>(accounts[i]->getAllUsers()[y])->getAllItems().size() > 0) {
+								std::vector<LibraryItem*> items = dynamic_cast<Player*>(accounts[i]->getAllUsers()[y])->getAllItems();
+								for (int j = 0; j < items.size(); j++) {
 									data << "LIBRARY-ITEM" << std::endl;
 									data << std::to_string(items[j]->getGame().GetId()) << std::endl;
 									data << items[j]->GetPurchasedDate().getDate() << std::endl;
@@ -358,9 +358,11 @@ bool Application::LoginAccount(const std::string& email, const std::string& pass
 
 bool Application::LoginUser(const std::string& username, const std::string& password)
 {
-	for (int i = 0; i < currentAccount->users.length(); i++) {
-		if (currentAccount->users[i]->GetUsername() == username && currentAccount->users[i]->GetPassword() == password) {
-			currentUser = currentAccount->users[i];
+
+	
+	for (int i = 0; i < currentAccount->getAllUsers().length(); i++) {
+		if (currentAccount->getAllUsers()[i]->GetUsername() == username && currentAccount->getAllUsers()[i]->GetPassword() == password) {
+			currentUser = currentAccount->getAllUsers()[i];
 			return true;
 		}
 	}
