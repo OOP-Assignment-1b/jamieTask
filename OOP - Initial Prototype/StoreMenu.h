@@ -2,6 +2,9 @@
 
 #include "Menu.h"
 #include "List.h"
+#include "PurchaseMenu.h"
+#include <iomanip>
+#include <sstream>
 
 #include <string>
 

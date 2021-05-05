@@ -332,8 +332,8 @@ Store& Application::GetStore()
 bool Application::LoginAccount(const std::string& email, const std::string& password)
 {
 
-	currentAccount = accounts[0];
-	return true;
+	//currentAccount = accounts[0];
+	//return true;
 
 	for (int i = 0; i < accounts.length(); i++) {
 		if (accounts[i]->GetEmail() == email && accounts[i]->GetPassword() == password) {

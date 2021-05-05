@@ -275,7 +275,7 @@ void main()
 	//createHardcodedTestData(app);
 
 	app.Load();
-	app.LoginAccount("alice@shu.ac.uk", "password");
+	app.LoginAccount("alice@shu.com", "password");
 
 	
 	MainMenu("Main Menu", &app);
