@@ -10,7 +10,7 @@ Store::~Store()
 
 void Store::addGame(Game* game)
 {
-	games.addInFront(game);
+	games.addAtEnd(game);
 }
 
 Game Store::getAtIndex(const int index)

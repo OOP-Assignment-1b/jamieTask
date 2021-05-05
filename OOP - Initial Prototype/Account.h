@@ -12,6 +12,7 @@ class Account
 		~Account();
 		const std::string& GetEmail() const;
 		const std::string& GetPassword() const;
+		const Date& GetDateCreated() const;
 		List<User*> users;
 	private:
 		std::string email;

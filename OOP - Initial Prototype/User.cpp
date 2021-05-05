@@ -19,7 +19,12 @@ const std::string& User::GetPassword() const
 	return password;
 }
 
-std::string User::getRole() const
+const Date& User::GetDateCreated() const
+{
+	return created;
+}
+
+const std::string User::getRole() const
 {
 	return this->role;
 }

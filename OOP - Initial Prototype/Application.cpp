@@ -35,6 +35,10 @@ bool Application::Load()
 			int i = 0;
 			int y = 0;
 
+			int day;
+			int month;
+			int year;
+
 			std::string username = "";
 			std::string email = "";
 			std::string password = "";
@@ -45,6 +49,7 @@ bool Application::Load()
 
 					std::string name;
 					std::string description;
+					int id;
 					int ageRatting;
 					int cost;
 					int like;
@@ -55,7 +60,9 @@ bool Application::Load()
 						switch (i)
 						{
 
-						case 0: break;
+						case 0:
+							id = std::stoi(line);
+							break;
 						case 1:
 							name = line;
 							break;
@@ -81,14 +88,10 @@ bool Application::Load()
 						}
 
 					}
-					GetStore().addGame(new Game(name, description, cost, ageRatting, like, dislike));
+					GetStore().addGame(new Game(name, description, cost, ageRatting, like, dislike, id));
 				}
 				else if (line == "ACCOUNT")
 				{
-
-					int day;
-					int month;
-					int year;
 
 					int i;
 
@@ -99,9 +102,9 @@ bool Application::Load()
 
 						case 0:
 
-							day = std::stoi(line.substr(0, line.find('-')));
+							year = std::stoi(line.substr(0, line.find('-')));
 							month = std::stoi(line.substr(5, line.find('-')));
-							year = std::stoi(line.substr(8, line.find('-')));
+							day = std::stoi(line.substr(8, line.find('-')));
 
 							break;
 						case 1:
@@ -124,11 +127,6 @@ bool Application::Load()
 				{
 
 					int id;
-
-					int day;
-					int month;
-					int year;
-
 					int minutes;
 
 					for (i = 0; i < 3; i++) {
@@ -141,9 +139,9 @@ bool Application::Load()
 							break;
 						case 1:
 
-							day = std::stoi(line.substr(0, line.find('-')));
+							year = std::stoi(line.substr(0, line.find('-')));
 							month = std::stoi(line.substr(5, line.find('-')));
-							year = std::stoi(line.substr(8, line.find('-')));
+							day = std::stoi(line.substr(8, line.find('-')));
 
 							break;
 						case 2:
@@ -157,17 +155,13 @@ bool Application::Load()
 					}
 
 					Date date = Date(day, month, year);
-					Player* user = dynamic_cast<Player*>(accounts[0]->users[0]);
+					Player* user = dynamic_cast<Player*>(accounts[0]->users.last());
 					Game game = Game(GetStore().getAtIndex(id));
-					LibraryItem* iteam = new LibraryItem(date, game);
+					LibraryItem* iteam = new LibraryItem(date, game, minutes);
 					user->addLibraryItem(iteam);
 				}
 				else if (line == "ACCOUNT-PLAYER")
 				{
-
-					int day;
-					int month;
-					int year;
 
 					for (i = 0; i < 3; i++) {
 						getline(data, line);
@@ -175,9 +169,9 @@ bool Application::Load()
 						{
 
 						case 0:
-							day = std::stoi(line.substr(0, line.find('-')));
+							year = std::stoi(line.substr(0, line.find('-')));
 							month = std::stoi(line.substr(5, line.find('-')));
-							year = std::stoi(line.substr(8, line.find('-')));
+							day = std::stoi(line.substr(8, line.find('-')));
 							break;
 						case 1:
 							username = line;
@@ -193,16 +187,12 @@ bool Application::Load()
 					}
 
 					Date date(day, month, year);
-					User* user = new Player(username, password, date, "user");
-					accounts[0]->users.addInFront(user);
+					User* user = new Player(username, password, date, "PLAYER");
+					accounts[0]->users.addAtEnd(user);
 
 				}
 				else if (line == "ACCOUNT-ADMIN")
 				{
-
-					int day;
-					int month;
-					int year;
 
 					for (i = 0; i < 3; i++) {
 
@@ -232,8 +222,8 @@ bool Application::Load()
 					}
 
 					Date date(day, month, year);
-					User* user = new Admin(username, password, date, "admin");
-					accounts[0]->users.addInFront(user);
+					User* user = new Admin(username, password, date, "ADMIN");
+					accounts[0]->users.addAtEnd(user);
 
 				}
 
@@ -258,43 +248,57 @@ bool Application::Save()
 	try {
 
 		std::ofstream data;
-		data.open("data2.txt", std::fstream::out | std::fstream::trunc);
+		data.open("data.txt", std::fstream::out | std::fstream::trunc);
 
 		if (data.is_open()) {
 
-			List<Game*> games = GetStore().getGames();
-
-			for (int i = 0; i < games.length(); i++) {
-				data << "GAME" << std::endl;
-				data << i + 1 << std::endl;
-				data << games[i]->GetName() << std::endl;
-				data << games[i]->GetDescription() << std::endl;
-				data << 0 << std::endl;
-				data << games[i]->GetCost() << std::endl;
+			if (GetStore().getGames().length() > 0) {
+				for (int i = 0; i < GetStore().getGames().length(); i++) {
+					data << "GAME" << std::endl;
+					data << i << std::endl;
+					data << GetStore().getGames()[i]->GetName() << std::endl;
+					data << GetStore().getGames()[i]->GetDescription() << std::endl;
+					data << GetStore().getGames()[i]->GetCost() << std::endl;
+					data << GetStore().getGames()[i]->GetAgeRating() << std::endl;
+					data << GetStore().getGames()[i]->GetLikes() << std::endl;
+					data << GetStore().getGames()[i]->GetDislikes() << std::endl;
+				}
 			}
 
-			for (int i = 0; i < accounts.length(); i++) {
-				data << "ACCOUNT" << std::endl;
-				for (int y = 0; y < accounts[i]->users.length() ;y++) {
-					/*
-					if (accounts[i]->users) {
-						data << "ACCOUNT-PLAYER" << std::endl;
+
+			if (accounts.length() > 0) {
+				for (int i = 0; i < accounts.length(); i++) {
+					data << "ACCOUNT" << std::endl;
+					data << accounts[i]->GetDateCreated().getDate() << std::endl;
+					data << accounts[i]->GetEmail() << std::endl;
+					data << accounts[i]->GetPassword() << std::endl;
+					if (accounts[i]->users.length() > 0) {
+						List<User*> users = accounts[i]->users;
+						for (int y = 0; y < users.length(); y++) {
+							data << "ACCOUNT-" + users[y]->getRole() << std::endl;
+							data << users[y]->GetDateCreated().getDate() << std::endl;
+							data << users[y]->GetUsername() << std::endl;
+							data << users[y]->GetPassword() << std::endl;
+							data << std::to_string(100) << std::endl; //TODO: add creddit
+							if (dynamic_cast<Player*>(accounts[i]->users[y])->getAllItems().length() > 0) {
+								List<LibraryItem*> items = dynamic_cast<Player*>(accounts[i]->users[y])->getAllItems();
+								for (int j = 0; j < items.length(); j++) {
+									data << "LIBRARY-ITEM" << std::endl;
+									data << std::to_string(items[j]->getGame().GetId()) << std::endl;
+									data << items[j]->GetPurchasedDate().getDate() << std::endl;
+									data << std::to_string(items[j]->GetPlaytime()) << std::endl;
+								}
+							}
+						}
 					}
-					else
-					{
-						data << "ACCOUNT-ADMIN" << std::endl;
-					}
-					data << accounts[i]->users[y]->GetUsername() << std::endl;
-					data << accounts[i]->users[y]->GetUsername() << std::endl;
-					*/
 
 				}
-
 			}
 
 		}
 
 		data.close();
+		return true;
 
 	}
 	catch (...) {
@@ -331,9 +335,6 @@ Store& Application::GetStore()
 
 bool Application::LoginAccount(const std::string& email, const std::string& password)
 {
-
-	//currentAccount = accounts[0];
-	//return true;
 
 	for (int i = 0; i < accounts.length(); i++) {
 		if (accounts[i]->GetEmail() == email && accounts[i]->GetPassword() == password) {

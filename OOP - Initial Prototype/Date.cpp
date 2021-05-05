@@ -8,7 +8,7 @@ Date::Date(const int& day, const int& month, const int& year):
 }
 
 
-std::string Date::getCurrentDate() const
+std::string Date::getDate() const
 {
 
 	return std::to_string(this->year) + "-" + std::to_string(this->month) + "-" + std::to_string(this->day);
@@ -70,7 +70,7 @@ bool Date::compareDate(const std::string& date) const
 {
 
 	try{
-		return strcmp(date.c_str(), getCurrentDate().c_str()) < 0;
+		return strcmp(date.c_str(), getDate().c_str()) < 0;
 	}
 	catch(...){
 		return false;
