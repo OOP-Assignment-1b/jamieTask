@@ -35,6 +35,8 @@ bool Application::Load()
 			int i = 0;
 			int y = 0;
 
+			int credit = 0;
+
 			int day;
 			int month;
 			int year;
@@ -163,7 +165,7 @@ bool Application::Load()
 				else if (line == "ACCOUNT-PLAYER")
 				{
 
-					for (i = 0; i < 3; i++) {
+					for (i = 0; i < 4; i++) {
 						getline(data, line);
 						switch (i)
 						{
@@ -178,6 +180,9 @@ bool Application::Load()
 							break;
 						case 2:
 							password = line;
+							break;
+						case 3:
+							credit = std::stoi(line);
 							break;
 
 						default:
@@ -188,13 +193,14 @@ bool Application::Load()
 
 					Date date(day, month, year);
 					User* user = new Player(username, password, date, "PLAYER");
+					user->setCredits(credit);
 					accounts[0]->users.addAtEnd(user);
 
 				}
 				else if (line == "ACCOUNT-ADMIN")
 				{
 
-					for (i = 0; i < 3; i++) {
+					for (i = 0; i < 4; i++) {
 
 						getline(data, line);
 
@@ -212,6 +218,9 @@ bool Application::Load()
 							break;
 						case 2:
 							password = line;
+							break;
+						case 3:
+							credit = std::stoi(line);
 							break;
 
 						default:
@@ -223,6 +232,7 @@ bool Application::Load()
 
 					Date date(day, month, year);
 					User* user = new Admin(username, password, date, "ADMIN");
+					user->setCredits(credit);
 					accounts[0]->users.addAtEnd(user);
 
 				}
@@ -279,7 +289,7 @@ bool Application::Save()
 							data << users[y]->GetDateCreated().getDate() << std::endl;
 							data << users[y]->GetUsername() << std::endl;
 							data << users[y]->GetPassword() << std::endl;
-							data << std::to_string(100) << std::endl; //TODO: add creddit
+							data << std::to_string(users[y]->getCredits()) << std::endl;
 							if (dynamic_cast<Player*>(accounts[i]->users[y])->getAllItems().length() > 0) {
 								List<LibraryItem*> items = dynamic_cast<Player*>(accounts[i]->users[y])->getAllItems();
 								for (int j = 0; j < items.length(); j++) {
