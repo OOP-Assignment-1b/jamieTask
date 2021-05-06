@@ -16,21 +16,22 @@ void PurchaseMenu::OutputOptions()
 		Line(Utils::formatCurrency("Credits: ", app->GetCurrentUser()->getCredits()));
 		Line();
 
-		int iteamIndex = GetLibraryItemIndex();
-		if (iteamIndex >= 0) {
+		int itemIndex = GetLibraryItemIndex();
+		if (itemIndex >= 0) {
 
 			auto games = dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems();
 
 			Line("You own this game!");
 
 			Line();
-			Line("Purchased: " + games[iteamIndex]->GetPurchasedDate().getDate());
-			Line("Playtime: " + std::to_string(games[iteamIndex]->GetPlaytime()));
+			Line("Purchased: " + games[itemIndex]->GetPurchasedDate().getDate());
+			double playTimeHours = games[itemIndex]->GetPlaytime() / 60.00f;
+			Line("Playtime: " + Utils::formatPlayTime(playTimeHours, games[itemIndex]->getGame().GetName()));
 
 			Line();
 			Line("Review Purchased Game");
 
-			if (!games[iteamIndex]->GetHasReviewed()) {
+			if (!games[itemIndex]->GetHasReviewed()) {
 				Option('L', "Like Game?");
 				Option('D', "Dislie Game?");
 			}
