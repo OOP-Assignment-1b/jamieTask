@@ -27,14 +27,15 @@ bool SearchMenu::HandleChoice(char choice)
 	{
 	case 'N':
 	{
-		std::string userInput = Question(" Enter name to search for");
-		//games = app->GetStore().searchByName(userInput);
-		SearchResultMenu("SEARCH RESULTS", app, app->GetStore().searchByName(userInput));
+		auto userInput = Question("Enter name to search for");
+		SearchResultMenu("SEARCH RESULTS", app, app->GetStore().searchByName(userInput, games));
 	
 	}break;
 	case 'P':
 	{
-		
+		auto input = Question("Enter price range (e.g. 5-10)");
+		SearchResultMenu("SEARCH RESULTS", app, app->GetStore().searchByPrice(input, games));
+			
 	}break;
 
 	}

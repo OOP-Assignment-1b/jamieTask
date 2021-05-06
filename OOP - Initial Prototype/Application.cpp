@@ -95,8 +95,6 @@ bool Application::Load()
 				else if (line == "ACCOUNT")
 				{
 
-					int i;
-
 					for (int i = 0; i < 3; i++) {
 						getline(data, line);
 						switch (i)

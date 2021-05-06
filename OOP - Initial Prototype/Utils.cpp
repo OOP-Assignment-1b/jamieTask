@@ -116,3 +116,17 @@ const bool Utils::startsWith(const std::string& fullText, const std::string& sea
     return fullText.find(searchText) == 0;
 }
 
+
+std::vector<std::string> Utils::split(std::string& str, const std::string& delimiter)
+{
+    std::vector<std::string> tokens;
+    std::stringstream ss(str);
+
+    while (ss.good()) {
+        std::string sub;
+        std::getline(ss, sub, '-');
+        tokens.push_back(sub);
+    }
+
+    return tokens;
+}

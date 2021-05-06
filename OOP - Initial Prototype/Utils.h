@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
+#include <vector>
 
 class Utils
 {
@@ -27,5 +28,5 @@ class Utils
     static const std::string formatCurrency(const std::string& text, const double& ammount);
     
     static const bool startsWith(const std::string& fullText, const std::string& searchText);
-    
+    static std::vector<std::string> split( std::string& str, const std::string& delimiter);
 };
