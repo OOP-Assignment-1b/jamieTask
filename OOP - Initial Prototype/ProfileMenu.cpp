@@ -33,6 +33,7 @@ void ProfileMenu::OutputOptions()
 	}
 
 	Line();
+	Line("PAGE " + std::to_string(((index / gameRows) + 1)) + " OF " + std::to_string(static_cast<int>(ceil(static_cast<float>(dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size()) / static_cast<float>(gameRows)))));
 	if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > GetCap()) {
 		Option('E', "Next Page");
 	}
