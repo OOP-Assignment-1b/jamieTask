@@ -15,7 +15,7 @@ public:
 private:
 	List<Game*> games;
 	int index = 0;
-	int gameRows = 5;
+	const int gameRows = 5;
 
 };
 

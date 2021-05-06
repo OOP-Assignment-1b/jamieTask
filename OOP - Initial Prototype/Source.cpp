@@ -17,10 +17,7 @@ void main()
 	Application app;
 
 	app.Load();
-	app.LoginAccount("alice@shu.com", "password");
-
 	MainMenu("Main Menu", &app);
-
 	app.Save();
 
 }
