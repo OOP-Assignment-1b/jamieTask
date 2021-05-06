@@ -33,11 +33,21 @@ void ProfileMenu::OutputOptions()
 
 	std::vector<LibraryItem*> temp = player->getAllItems();
 
-	for (int i = 0; i < temp.size(); i++)
+	for (int i = 0 + index; i < GetCap(); i++)
 	{
 		double playTimeHours = temp[i]->GetPlaytime() / 60.00f;
-		Option(i + 1, Utils::formatPlayTime(playTimeHours, temp[i]->getGame().GetName()));
+		Option((i + 1) - index, Utils::formatPlayTime(playTimeHours, temp[i]->getGame().GetName()));
 	}
+
+	Line();
+	if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > GetCap()) {
+		Option('E', "Next Page");
+	}
+
+	if (index >= gameRows) {
+		Option('Q', "Back page");
+	}
+
 
 }
 
@@ -46,6 +56,7 @@ bool ProfileMenu::HandleChoice(char choice)
 	
 	Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
 	int index = choice - '1';
+	index += this->index;
 	auto list = player->getAllItems();
 	auto games = app->GetStore().getGames();
 
@@ -166,9 +177,27 @@ bool ProfileMenu::HandleChoice(char choice)
 			}
 			
 		}break;
+		case 'E':
+		{
+			if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > GetCap()) this->index += gameRows;
+		}break;
+		case 'Q':
+		{
+			if (this->index >= gameRows) this->index -= gameRows;
+		}break;
+
 		}
 	}
 
 	return false;
+
+}
+
+const int& ProfileMenu::GetCap() const {
+
+	int cap = dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size();
+	if (cap >= this->index + gameRows) cap = gameRows + this->index;
+
+	return cap;
 
 }

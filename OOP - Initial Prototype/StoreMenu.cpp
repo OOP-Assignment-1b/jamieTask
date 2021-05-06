@@ -58,7 +58,7 @@ bool StoreMenu::HandleChoice(char choice)
 	}break;
 	case 'N':
 	{
-		if (app->GetStore().getGames().length() > this->index) this->index += gameRows;
+		if (app->GetStore().getGames().length() > GetCap()) this->index += gameRows;
 	}break;
 	case 'P':
 	{
