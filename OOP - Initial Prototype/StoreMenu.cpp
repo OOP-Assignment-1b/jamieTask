@@ -17,11 +17,11 @@ void StoreMenu::OutputOptions()
 	for (int i = 0 + index; i < GetCap(); i++)
 	{
 		std::stringstream formatString;
-		auto a = app->GetStore().getGames()[i]->GetRating();
 		formatString << std::left << std::setfill(' ') << std::setw(15) << app->GetStore().getGames()[i]->GetName() << " | User Rating: " << std::to_string(app->GetStore().getGames()[i]->GetRating()) << "%";
 		Option((i + 1) - index, formatString.str());
 	}
 	Line();
+	Line("PAGE " + std::to_string(((index / gameRows) + 1)) + " OF " + std::to_string(static_cast<int>(ceil(static_cast<float>(app->GetStore().getGames().length()) / static_cast<float>(gameRows)))));
 	if (app->GetStore().getGames().length() > GetCap()) {
 		Option('N', "Next Page");
 	}
