@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "LibraryItem.h"
 #include "User.h"
@@ -15,6 +16,10 @@ public:
 	~Player();
 	void addLibraryItem(LibraryItem* item);
 	std::vector<LibraryItem*> getAllItems() const;
+
+	void sortByName();
+	void sortByPurchaseDate();
+
 private:
 	std::vector<LibraryItem*> library;
 };

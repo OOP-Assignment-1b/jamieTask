@@ -43,6 +43,8 @@ void ProfileMenu::OutputOptions()
 	}
 	Line();
 	Option('V', "Launch Game");
+	Option('J', "Sort by Name");
+	Option('K', "Sort by Purchase Date");
 
 
 }
@@ -64,6 +66,14 @@ bool ProfileMenu::HandleChoice(char choice)
 
 	switch (choice)
 	{
+	case 'J':
+	{
+		player->sortByName();
+	}break;
+	case 'K':
+	{
+		player->sortByPurchaseDate();
+	}break;
 	case 'V':
 	{
 		auto t = Question("What game would you like to launch");

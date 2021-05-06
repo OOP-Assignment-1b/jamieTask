@@ -22,3 +22,19 @@ std::vector<LibraryItem*> Player::getAllItems() const
 {
 	return library;
 }
+void Player::sortByName()
+{
+	std::sort(library.begin(), library.end(), [](const LibraryItem* lhs, const LibraryItem* rhs)
+	{
+			return lhs->getGame().GetName() < rhs->getGame().GetName();
+	});
+}
+
+void Player::sortByPurchaseDate()
+{
+	std::sort(library.begin(), library.end(), [](const LibraryItem* lhs, const LibraryItem* rhs)
+		{
+			return lhs->GetPurchasedDate().getDate() < rhs->GetPurchasedDate().getDate();
+		});
+}
+
