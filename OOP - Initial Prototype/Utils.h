@@ -26,4 +26,6 @@ class Utils
     static const std::string formatPlayTime(double& time, const std::string& name);
     static const std::string formatCurrency(const std::string& text, const double& ammount);
     
+    static const bool startsWith(const std::string& fullText, const std::string& searchText);
+    
 };

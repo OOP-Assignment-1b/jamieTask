@@ -17,21 +17,19 @@ Game Store::getAtIndex(const int& index)
 {
 	return  *games[index];
 }
-List<std::string> Store::searchByName()
+
+List<Game*> Store::searchByName(std::string& userI)
 {
-	auto u = Utils::toLower(Utils::getLineFromUser());
-	List<std::string> temp;
-	for(int i=0; i<games.length(); i++)
+	std::string userSearch = Utils::toLower(userI);
+	List<Game*> foundGames;
+	for (int i = 0; i < games.length(); i++)
 	{
-		auto l = games[i]->GetName();
-		auto t = Utils::toLower(l);
-		if(t.find(u)<t.length())
-		{
-			temp.addInFront(l);
-		}
-		
+			if (Utils::startsWith(Utils::toLower(games[i]->GetName()), userSearch))
+			{
+				foundGames.addInFront(games[i]);
+			}
 	}
-	return temp;
+	return foundGames;
 }
 
 List<Game*> Store::getGames()

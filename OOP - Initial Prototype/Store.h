@@ -15,7 +15,7 @@ class Store
 		Game getAtIndex(const int&);
 		List<Game*> getGames();
 
-		List <std::string> searchByName();
+		List <Game*> searchByName(std::string& userI);
 
 	private:
 		List<Game*> games;

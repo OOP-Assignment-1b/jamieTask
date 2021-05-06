@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "List.h"
 #include "PurchaseMenu.h"
+#include "SearchMenu.h"
 #include <iomanip>
 #include <sstream>
 

@@ -105,4 +105,14 @@ const std::string Utils::formatCurrency(const std::string& text, const double& a
     return formatStringTwo.str();
 }
 
+const bool Utils::startsWith(const std::string& fullText, const std::string& searchText)
+{
+    
+    if (searchText.length() > fullText.length())
+    {
+        return false;
+    }
+
+    return fullText.find(searchText) == 0;
+}
 

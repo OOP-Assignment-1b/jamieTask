@@ -30,8 +30,7 @@ void StoreMenu::OutputOptions()
 		Option('P', "Back page");
 	}
 
-	Line();
-	Option('S', "Search by name");
+	Option('S', "Search");
 }
 
 bool StoreMenu::HandleChoice(char choice)
@@ -50,11 +49,7 @@ bool StoreMenu::HandleChoice(char choice)
 	{
 	case 'S':
 	{
-		auto t = app->GetStore().searchByName();
-		for (int i = 0; i < t.length(); i++)
-		{
-			BlockingMessage("Game Found: " + t[i]);
-		}
+		SearchMenu("SEARCHING GAMES", app, app->GetStore().getGames());
 	}break;
 	case 'N':
 	{
