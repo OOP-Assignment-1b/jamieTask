@@ -18,4 +18,7 @@ private:
 	List<std::string> games;
 	int index = 0;
 	int gameRows = 5;
+
+	const int& GetCap() const;
+
 };

@@ -13,17 +13,15 @@ StoreMenu::StoreMenu(const std::string& title, Application* app) : Menu(title, a
 
 void StoreMenu::OutputOptions()
 {
-	int cap = app->GetStore().getGames().length();
-	if (cap >= index + gameRows) cap = gameRows + index;
 
-	for (int i = 0 + index; i < cap; i++)
+	for (int i = 0 + index; i < GetCap(); i++)
 	{
 		std::stringstream formatString;
 		formatString << std::left << std::setfill(' ') << std::setw(15) << app->GetStore().getGames()[i]->GetName() << " | User Rating: " << std::to_string(app->GetStore().getGames()[i]->GetRating()) << "%";
-		Option(i + 1, formatString.str());
+		Option((i + 1) - index, formatString.str());
 	}
 	Line();
-	if (app->GetStore().getGames().length() > cap) {
+	if (app->GetStore().getGames().length() > GetCap()) {
 		Option('+', "Next Page");
 	}
 
@@ -41,8 +39,9 @@ bool StoreMenu::HandleChoice(char choice)
 	// this puts '1' as 0, '2' as 1, '3' as 2, '4' as 3, etc.
 	// this reverses the + 1 above and lets us do the range check below
 	int index = choice - '1';
+	index += this->index;
 
-	if (index >= 0 && index <= games.length())
+	if (index >= this->index && index <= GetCap() - 1)
 	{
 		PurchaseMenu(Utils::toUpper(app->GetStore().getGames()[index]->GetName()), app, index);
 
@@ -69,4 +68,14 @@ bool StoreMenu::HandleChoice(char choice)
 	}
 
 	return false;
+}
+
+
+const int& StoreMenu::GetCap() const{
+
+	int cap = app->GetStore().getGames().length();
+	if (cap >= this->index + gameRows) cap = gameRows + this->index;
+
+	return cap;
+
 }
