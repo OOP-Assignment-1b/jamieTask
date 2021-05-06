@@ -41,6 +41,8 @@ void ProfileMenu::OutputOptions()
 	if (index >= gameRows) {
 		Option('Q', "Back page");
 	}
+	Line();
+	Option('V', "Launch Game");
 
 
 }
@@ -57,97 +59,105 @@ bool ProfileMenu::HandleChoice(char choice)
 
 	if (index >= 0 && index < list.size())
 	{
-
-		list[index]->AddPlaytime(Utils::getRandomNumber(60, 10));
+		PurchaseMenu(Utils::recursiveToUpper(list[index]->getGame().GetName()), app, list[index]->getGame().GetId());
 	}
-	else {
 
-		switch (choice)
+	switch (choice)
+	{
+	case 'V':
+	{
+		auto t = Question("What game would you like to launch");
+		index = t[0] - '1';
+		if (index >= 0 && index < list.size())
 		{
-		case 'I':
-		{
-			player->addCredits(100);
-		} break;
-		case 'O':
-		{
-			player->addCredits(1000);
-		} break;
-		case 'P':
-		{
-			player->addCredits(10000);
-		} break;
+			list[index]->AddPlaytime(Utils::getRandomNumber(60, 10));
+		}
 
-		case 'A':
+	}break;
+	case 'I':
+	{
+		player->addCredits(100);
+	} break;
+	case 'O':
+	{
+		player->addCredits(1000);
+	} break;
+	case 'P':
+	{
+		player->addCredits(10000);
+	} break;
+
+	case 'A':
+	{
+		std::string role = Utils::toUpper(Question("What's the role of the user"));
+		if (role == "ADMIN" || role == "PLAYER")
 		{
-			std::string role = Utils::toUpper(Question("What's the role of the user"));
-			if (role == "ADMIN" || role == "PLAYER")
+			std::string username = Question("What's the name of the user");
+			if (std::all_of(username.begin(), username.end(), isspace))
 			{
-				std::string username = Question("What's the name of the user");
-				if (std::all_of(username.begin(), username.end(), isspace))
-				{
-					BlockingMessage("No spaces allowed for username");
-					break;
-				}
+				BlockingMessage("No spaces allowed for username");
+				break;
+			}
 
-				bool spaceUsername = false;
-				for (int i = 0; i < username.length(); i++)
+			bool spaceUsername = false;
+			for (int i = 0; i < username.length(); i++)
+			{
+				if (isspace(username[i]))
 				{
-					if (isspace(username[i]))
-					{
-						spaceUsername = true;
-					}
+					spaceUsername = true;
 				}
-				if (spaceUsername)
+			}
+			if (spaceUsername)
+			{
+				BlockingMessage("No spaces allowed for username");
+				break;
+			}
+			bool inList = false;
+			for (int i = 0; i < app->GetCurrentAccount()->getAllUsers().length(); i++)
+			{
+				std::string usernameInList = app->GetCurrentAccount()->getAllUsers()[i]->GetUsername();
+				if (Utils::toLower(usernameInList) == Utils::toLower(username)) inList = !inList;
+			}
+			if (inList)
+			{
+				BlockingMessage("That user already exists!");
+				break;
+			}
+			std::string password = Question("What's the password of the user");
+			if (std::all_of(password.begin(), password.end(), isspace))
+			{
+				BlockingMessage("No spaces allowed for password");
+				break;
+			}
+			bool spacePassword = false;
+			for (int i = 0; i < password.length(); i++)
+			{
+				if (isspace(password[i]))
 				{
-					BlockingMessage("No spaces allowed for username");
-					break;
+					spacePassword = true;
 				}
-				bool inList = false;
-				for (int i = 0; i < app->GetCurrentAccount()->getAllUsers().length(); i++)
-				{
-					std::string usernameInList = app->GetCurrentAccount()->getAllUsers()[i]->GetUsername();
-					if (Utils::toLower(usernameInList) == Utils::toLower(username)) inList = !inList;
-				}
-				if (inList)
-				{
-					BlockingMessage("That user already exists!");
-					break;
-				}
-				std::string password = Question("What's the password of the user");
-				if (std::all_of(password.begin(), password.end(), isspace))
-				{
-					BlockingMessage("No spaces allowed for password");
-					break;
-				}
-				bool spacePassword = false;
-				for (int i = 0; i < password.length(); i++)
-				{
-					if (isspace(password[i]))
-					{
-						spacePassword = true;
-					}
-				}
-				if (spacePassword)
-				{
-					BlockingMessage("No spaces allowed for password");
-					break;
-				}
-				if (role == "ADMIN")
-				{
-					Player* admin = new Admin(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "ADMIN");
-					app->GetCurrentAccount()->addUser(admin);
-				}
-				else
-				{
-					Player* user = new Player(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "PLAYER");
-					app->GetCurrentAccount()->addUser(user);
-				}
-				BlockingMessage("Account Created!");
+			}
+			if (spacePassword)
+			{
+				BlockingMessage("No spaces allowed for password");
+				break;
+			}
+			if (role == "ADMIN")
+			{
+				Player* admin = new Admin(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "ADMIN");
+				app->GetCurrentAccount()->addUser(admin);
 			}
 			else
 			{
-				BlockingMessage("Type can only be [ADMIN] or [PLAYER]");
+				Player* user = new Player(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "PLAYER");
+				app->GetCurrentAccount()->addUser(user);
 			}
+			BlockingMessage("Account Created!");
+		}
+		else
+		{
+			BlockingMessage("Type can only be [ADMIN] or [PLAYER]");
+		}
 
 		}break;
 		case'D':
@@ -163,7 +173,6 @@ bool ProfileMenu::HandleChoice(char choice)
 			if (this->index >= gameRows) this->index -= gameRows;
 		}break;
 
-		}
 	}
 
 	return false;
