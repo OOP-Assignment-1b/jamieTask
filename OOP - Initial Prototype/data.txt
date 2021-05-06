@@ -4,7 +4,7 @@ The Witness
 Explore a nice island and solve puzzles.
 2999
 5
-0
+1
 0
 GAME
 1
@@ -12,8 +12,8 @@ Braid
 A time twisting puzzle game.
 499
 15
-0
-0
+1
+1
 GAME
 2
 Factorio
@@ -37,7 +37,7 @@ What are those scientists even doing?!
 1299
 15
 0
-0
+1
 GAME
 5
 Portal 2
@@ -82,13 +82,13 @@ password
 LIBRARY-ITEM
 1
 2021-05-05
-283
-0
+385
+1
 LIBRARY-ITEM
 0
 2021-05-05
 1295
-0
+1
 LIBRARY-ITEM
 2
 2017-09-09
@@ -97,8 +97,8 @@ LIBRARY-ITEM
 LIBRARY-ITEM
 4
 2021-05-05
-0
-0
+357
+1
 ACCOUNT-ADMIN
 2017-06-06
 Angus
@@ -113,7 +113,7 @@ LIBRARY-ITEM
 1
 2017-06-06
 86
-0
+1
 LIBRARY-ITEM
 0
 2021-05-05
@@ -133,14 +133,4 @@ LIBRARY-ITEM
 5
 2017-09-09
 360
-0
-ACCOUNT-PLAYER
-2021-05-05
-a
-p
-17001
-LIBRARY-ITEM
-0
-2021-05-05
-0
 0

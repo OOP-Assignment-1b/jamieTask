@@ -7,6 +7,7 @@
 #include "Utils.h"
 #include <iomanip>
 #include <sstream>
+#include "PurchaseMenu.h"
 
 class ProfileMenu : public Menu
 
