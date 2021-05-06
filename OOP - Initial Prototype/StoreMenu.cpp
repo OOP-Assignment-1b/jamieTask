@@ -22,11 +22,11 @@ void StoreMenu::OutputOptions()
 	}
 	Line();
 	if (app->GetStore().getGames().length() > GetCap()) {
-		Option('+', "Next Page");
+		Option('N', "Next Page");
 	}
 
 	if (index >= gameRows) {
-		Option('-', "Back page");
+		Option('P', "Back page");
 	}
 
 	Line();
@@ -56,11 +56,11 @@ bool StoreMenu::HandleChoice(char choice)
 			BlockingMessage("Game Found: " + t[i]);
 		}
 	}break;
-	case '+':
+	case 'N':
 	{
 		if (app->GetStore().getGames().length() > this->index) this->index += gameRows;
 	}break;
-	case '-':
+	case 'P':
 	{
 		if (this->index >= gameRows) this->index -= gameRows;
 	}break;
