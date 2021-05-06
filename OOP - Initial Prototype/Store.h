@@ -12,7 +12,7 @@ class Store
 
 		void addGame(Game* game);
 
-		Game getAtIndex(const int index);
+		Game getAtIndex(const int&);
 		List<Game*> getGames();
 
 		List <std::string> searchByName();

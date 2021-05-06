@@ -130,8 +130,9 @@ bool Application::Load()
 
 					int id;
 					int minutes;
+					bool hasReviewed;
 
-					for (i = 0; i < 3; i++) {
+					for (i = 0; i < 4; i++) {
 						getline(data, line);
 						switch (i)
 						{
@@ -149,6 +150,9 @@ bool Application::Load()
 						case 2:
 							minutes = std::stoi(line);
 							break;
+						case 3:
+							hasReviewed = line == "1" ? true : false;
+							break;
 
 						default:
 							return false;
@@ -160,6 +164,7 @@ bool Application::Load()
 					Player* user = dynamic_cast<Player*>(accounts[0]->getAllUsers().last());
 					Game game = Game(GetStore().getAtIndex(id));
 					LibraryItem* iteam = new LibraryItem(date, game, minutes);
+					iteam->SetHasReviewed(hasReviewed);
 					user->addLibraryItem(iteam);
 				}
 				else if (line == "ACCOUNT-PLAYER")
@@ -297,6 +302,7 @@ bool Application::Save()
 									data << std::to_string(items[j]->getGame().GetId()) << std::endl;
 									data << items[j]->GetPurchasedDate().getDate() << std::endl;
 									data << std::to_string(items[j]->GetPlaytime()) << std::endl;
+									data << (items[j]->GetHasReviewed() == true ? "1" : "0") << std::endl;
 								}
 							}
 						}

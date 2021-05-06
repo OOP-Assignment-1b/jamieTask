@@ -20,7 +20,8 @@ private:
 	int index = 0;
 	int gameRows = 5;
 	const int& ProfileMenu::GetCap() const;
-	
+	const void DeleteUser(std::string& username);
+
 };
 
 

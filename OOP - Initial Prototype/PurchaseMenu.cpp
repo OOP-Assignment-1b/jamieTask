@@ -1,48 +1,49 @@
 #include "PurchaseMenu.h"
 
-PurchaseMenu::PurchaseMenu(const std::string& title, Application* app, const int& index) : index(index), Menu(title, app) 
+PurchaseMenu::PurchaseMenu(const std::string& title, Application* app, const int& index) : index(index), Menu(title, app)
 {
-
-	
+	game = app->GetStore().getGames()[this->index];
 	Paint(); // required in constructor
 }
 
 void PurchaseMenu::OutputOptions()
 {
-	auto game = app->GetStore().getGames()[this->index];
 	Line(game->GetDescription());
-	double cost = game->GetCost();
-	cost /= 100;
-	std::stringstream formatString;
-	formatString  << "Cost: " << std::setprecision(5) << cost;
-	Line(formatString.str());
+	Line(Utils::formatCurrency("Cost: ", game->GetCost()));
+
 	if (app->IsUserLoggedIn())
 	{
-		std::stringstream formatStringTwo;
-		double credits = app->GetCurrentUser()->getCredits() / 100.00f;
-		formatStringTwo << "Credits: " << std::setprecision(5) << credits;
-		Line(formatStringTwo.str());
+		Line(Utils::formatCurrency("Credits: ", app->GetCurrentUser()->getCredits()));
 		Line();
-		bool hasGame = false;
-		Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
-		auto games = player->getAllItems();
 
-		for (int i = 0; i < games.size(); i++)
-		{
-			if (games[i]->getGame().GetName() == app->GetStore().getGames()[index]->GetName())
+		int iteamIndex = GetLibraryItemIndex();
+		if (iteamIndex >= 0) {
+
+			auto games = dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems();
+
+			Line("You own this game!");
+
+			Line();
+			Line("Purchased: " + games[iteamIndex]->GetPurchasedDate().getDate());
+			Line("Playtime: " + std::to_string(games[iteamIndex]->GetPlaytime()));
+
+			Line();
+			Line("Review Purchased Game");
+
+			if (!games[iteamIndex]->GetHasReviewed()) {
+				Option('L', "Like Game?");
+				Option('D', "Dislie Game?");
+			}
+			else
 			{
-				hasGame = !hasGame;
-				Line("You own this game!");
-				Line();
-				Line("Purchased: " + games[i]->GetPurchasedDate().getDate());
-				Line("Playtime: " + std::to_string(games[i]->GetPlaytime()));
+				Line("You have already reviewed!");
 			}
 		}
-		if(!hasGame){
+		else {
 			Option('P', "Purchase " + game->GetName());
 		}
 	}
-	
+
 }
 
 
@@ -52,23 +53,55 @@ bool PurchaseMenu::HandleChoice(char choice)
 
 	if (app->IsUserLoggedIn())
 	{
+
 		switch (choice)
 		{
 
 		case 'P': {
-				auto game = app->GetStore().getGames()[this->index];
-				Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
-				if (player->getCredits() >= game->GetCost())
-				{
-					player->removeCredits(game->GetCost());
-					player->addLibraryItem(new LibraryItem(Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), *game, 0));
-				}
-			
+			Purchase();
+		}break;
+		case 'L': {
+			ReviewGame(true);
+		}break;
+		case 'D': {
+			ReviewGame(false);
 		}break;
 		}
 
 	}
-	
+
 
 	return false;
+}
+
+const void PurchaseMenu::Purchase() {
+	Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
+	if (player->getCredits() >= game->GetCost())
+	{
+		player->removeCredits(game->GetCost());
+		player->addLibraryItem(new LibraryItem(Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), *game, 0));
+	}
+}
+
+const void PurchaseMenu::ReviewGame(const bool& review) {
+	int iteamIndex = GetLibraryItemIndex();
+	if (iteamIndex >= 0) {
+		if (!dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems()[iteamIndex]->GetHasReviewed()) {
+			game->AddReview(review);
+			dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems()[iteamIndex]->SetHasReviewed(true);
+		}
+	}
+}
+
+const int& PurchaseMenu::GetLibraryItemIndex() {
+	std::vector<LibraryItem*> games = dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems();
+	for (int i = 0; i < games.size(); i++)
+	{
+		if (games[i]->getGame().GetName() == app->GetStore().getGames()[index]->GetName())
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }

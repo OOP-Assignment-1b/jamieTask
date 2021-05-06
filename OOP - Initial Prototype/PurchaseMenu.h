@@ -10,7 +10,11 @@ class PurchaseMenu : public Menu
 		void OutputOptions() final;
 		bool HandleChoice(char choice) final;
 	private:
-
 		int index;
+		Game* game;
+
+		const int& GetLibraryItemIndex();
+		const void ReviewGame(const bool&);
+		const void Purchase();
 };
 

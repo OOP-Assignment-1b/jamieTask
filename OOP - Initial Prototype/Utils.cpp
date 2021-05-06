@@ -1,13 +1,13 @@
 #include "Utils.h"
 
-std::string Utils::getLineFromUser() 
+const std::string Utils::getLineFromUser()
 {
     std::string input;
     std::getline(std::cin, input);
     return input;
 }
 
-char Utils::getCharFromUser()
+const char Utils::getCharFromUser()
 {
     return toupper(getLineFromUser()[0]);
 }
@@ -36,7 +36,7 @@ const int Utils::getDay() {
     return day;
 }
 
-std::string Utils::toLower(const std::string& string)
+const std::string Utils::toLower(const std::string& string)
 {
     std::string c;
     for(int i=0; i < string.length(); i++)
@@ -46,7 +46,7 @@ std::string Utils::toLower(const std::string& string)
     return c;
 }
 
-std::string Utils::toUpper(const std::string& string)
+const std::string Utils::toUpper(const std::string& string)
 {
     std::string c;
     for (int i = 0; i < string.length(); i++)
@@ -56,7 +56,7 @@ std::string Utils::toUpper(const std::string& string)
     return c;
 }
 
-std::string Utils::recursiveToUpper (std::string str)
+const std::string Utils::recursiveToUpper (std::string str)
 {
     std::string result;
     if (str[0] == '\0') return result;
@@ -66,14 +66,14 @@ std::string Utils::recursiveToUpper (std::string str)
 
 }
 
-int Utils::getRandomNumber(const int& max, const int& min)
+const int Utils::getRandomNumber(const int& max, const int& min)
 {
 
     return rand() % (max - 10) + min;
 	
 }
 
-std::string Utils::formatPlayTime(double& time, const std::string& name)
+const std::string Utils::formatPlayTime(double& time, const std::string& name)
 {
     std::string suffix;
 
@@ -96,6 +96,13 @@ std::string Utils::formatPlayTime(double& time, const std::string& name)
     return formatStringThree.str();
 
 	
+}
+
+const std::string Utils::formatCurrency(const std::string& text, const double& ammount)
+{
+    std::stringstream formatStringTwo;
+    formatStringTwo << text << std::setprecision(5) << ammount / 100.00f;
+    return formatStringTwo.str();
 }
 
 

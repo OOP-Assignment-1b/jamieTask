@@ -11,12 +11,15 @@ class LibraryItem
 
 		const int& GetPlaytime() const;
 		const Date& GetPurchasedDate() const;
+		const bool& GetHasReviewed() const;
 
 		void SetPlaytime(const int&);
+		void SetHasReviewed(const bool&);
 		void AddPlaytime(const int&);
 
 	private:
 		const Game game;
 		const Date purchased;
 		int playtime;
+		bool hasReviewed = false;
 };

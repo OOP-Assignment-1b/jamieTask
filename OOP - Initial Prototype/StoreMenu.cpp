@@ -17,6 +17,7 @@ void StoreMenu::OutputOptions()
 	for (int i = 0 + index; i < GetCap(); i++)
 	{
 		std::stringstream formatString;
+		auto a = app->GetStore().getGames()[i]->GetRating();
 		formatString << std::left << std::setfill(' ') << std::setw(15) << app->GetStore().getGames()[i]->GetName() << " | User Rating: " << std::to_string(app->GetStore().getGames()[i]->GetRating()) << "%";
 		Option((i + 1) - index, formatString.str());
 	}
@@ -44,7 +45,6 @@ bool StoreMenu::HandleChoice(char choice)
 	if (index >= this->index && index <= GetCap() - 1)
 	{
 		PurchaseMenu(Utils::toUpper(app->GetStore().getGames()[index]->GetName()), app, index);
-
 	}
 	switch (choice)
 	{

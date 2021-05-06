@@ -1,12 +1,9 @@
 #include "ProfileMenu.h"
 
-
-
 ProfileMenu::ProfileMenu(const std::string& title, Application* app) : Menu(title, app)
 {
 	Paint(); // required in constructor
 }
-
 
 void ProfileMenu::OutputOptions()
 {
@@ -19,17 +16,13 @@ void ProfileMenu::OutputOptions()
 		Option('D', "Delete User");
 		Line();
 	}
-	std::stringstream formatStringTwo;
-	double credits = app->GetCurrentUser()->getCredits() / 100.00f;
-	formatStringTwo << "Credits: " << std::setprecision(5) << credits;
-	Line(formatStringTwo.str());
+
+	Line(Utils::formatCurrency("Credits: ", app->GetCurrentUser()->getCredits()));
 	Option('I', "Purchase 1   credit");
 	Option('O', "Purchase 10  credits");
 	Option('P', "Purchase 100 credits");
 	Line();
 	Line("GAMES");
-
-
 
 	std::vector<LibraryItem*> temp = player->getAllItems();
 
@@ -53,18 +46,18 @@ void ProfileMenu::OutputOptions()
 
 bool ProfileMenu::HandleChoice(char choice)
 {
-	
+
 	Player* player = dynamic_cast<Player*>(app->GetCurrentUser());
 	int index = choice - '1';
 	index += this->index;
 	auto list = player->getAllItems();
 	auto games = app->GetStore().getGames();
 
-	
+
 	if (index >= 0 && index < list.size())
 	{
-		
-		list[index]->AddPlaytime(Utils::getRandomNumber(60,10));
+
+		list[index]->AddPlaytime(Utils::getRandomNumber(60, 10));
 	}
 	else {
 
@@ -85,7 +78,7 @@ bool ProfileMenu::HandleChoice(char choice)
 
 		case 'A':
 		{
-			std::string role = Question("What's the role of the user");
+			std::string role = Utils::toUpper(Question("What's the role of the user"));
 			if (role == "ADMIN" || role == "PLAYER")
 			{
 				std::string username = Question("What's the name of the user");
@@ -94,6 +87,7 @@ bool ProfileMenu::HandleChoice(char choice)
 					BlockingMessage("No spaces allowed for username");
 					break;
 				}
+
 				bool spaceUsername = false;
 				for (int i = 0; i < username.length(); i++)
 				{
@@ -108,10 +102,9 @@ bool ProfileMenu::HandleChoice(char choice)
 					break;
 				}
 				bool inList = false;
-				List<User*> userList = app->GetCurrentAccount()->getAllUsers();
-				for (int i=0; i < userList.length(); i++)
+				for (int i = 0; i < app->GetCurrentAccount()->getAllUsers().length(); i++)
 				{
-					std::string usernameInList = userList[i]->GetUsername();
+					std::string usernameInList = app->GetCurrentAccount()->getAllUsers()[i]->GetUsername();
 					if (Utils::toLower(usernameInList) == Utils::toLower(username)) inList = !inList;
 				}
 				if (inList)
@@ -142,7 +135,8 @@ bool ProfileMenu::HandleChoice(char choice)
 				{
 					Player* admin = new Admin(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "ADMIN");
 					app->GetCurrentAccount()->addUser(admin);
-				} else
+				}
+				else
 				{
 					Player* user = new Player(username, password, Date(Utils::getDay(), Utils::getMonth(), Utils::getYear()), "PLAYER");
 					app->GetCurrentAccount()->addUser(user);
@@ -157,25 +151,7 @@ bool ProfileMenu::HandleChoice(char choice)
 		}break;
 		case'D':
 		{
-			std::string username = Question("What's the name of the user");
-			List<User*> users = app->GetCurrentAccount()->getAllUsers();
-			bool removed = false;
-			for (int i=0; i < users.length(); i++)
-			{
-				if (Utils::recursiveToUpper(users[i]->GetUsername()) == Utils::recursiveToUpper(username))
-				{
-					removed = !removed;
-					app->GetCurrentAccount()->getAllUsers().deleteOne(app->GetCurrentAccount()->getAllUsers()[i]);
-					BlockingMessage("Removed Account: " + users[i]->GetUsername());
-					return false;
-				}
-				
-			}
-			if (!removed)
-			{
-				BlockingMessage("No account removed");
-			}
-			
+			DeleteUser(Question("What's the name of the user"));
 		}break;
 		case 'E':
 		{
@@ -190,6 +166,22 @@ bool ProfileMenu::HandleChoice(char choice)
 	}
 
 	return false;
+
+}
+
+const void ProfileMenu::DeleteUser(std::string& username) {
+	for (int i = 0; i < app->GetCurrentAccount()->getAllUsers().length(); i++)
+	{
+		if (Utils::recursiveToUpper(app->GetCurrentAccount()->getAllUsers()[i]->GetUsername()) == Utils::recursiveToUpper(username))
+		{
+			BlockingMessage("Removed Account: " + app->GetCurrentAccount()->getAllUsers()[i]->GetUsername());
+			app->GetCurrentAccount()->getAllUsers().deleteOne(app->GetCurrentAccount()->getAllUsers()[i]);
+			return;
+		}
+
+	}
+
+	BlockingMessage("No account removed");
 
 }
 

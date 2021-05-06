@@ -15,6 +15,11 @@ void LibraryItem::SetPlaytime(const int& playtime) {
 	this->playtime = playtime;
 }
 
+void LibraryItem::SetHasReviewed(const bool& hasReviewed)
+{
+	this->hasReviewed = hasReviewed;
+}
+
 void LibraryItem::AddPlaytime(const int& playtime) {
 	this->playtime += playtime;
 }
@@ -27,5 +32,10 @@ const int& LibraryItem::GetPlaytime() const
 const Date& LibraryItem::GetPurchasedDate() const
 {
 	return purchased;
+}
+
+const bool& LibraryItem::GetHasReviewed() const
+{
+	return hasReviewed;
 }
 

@@ -13,7 +13,7 @@ void Store::addGame(Game* game)
 	games.addAtEnd(game);
 }
 
-Game Store::getAtIndex(const int index)
+Game Store::getAtIndex(const int& index)
 {
 	return  *games[index];
 }

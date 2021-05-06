@@ -25,12 +25,18 @@ const int& Game::GetAgeRating() const
 
 const int& Game::GetRating() const
 {
-	return likes > 0 ? ((likes / (likes + dislikes)) * 100) : 0;
+	//C++ is stupid int will not divided eg (1 / 3) * 100 = 0 in c++
+	return likes > 0 ? nearbyint((static_cast<double>(likes) / (static_cast<double>(likes) + static_cast<double>(dislikes))) * 100) : 0;
 }
 
 const int& Game::GetId() const
 {
 	return id;
+}
+
+const void Game::AddReview(const bool& review)
+{
+	review == true ? likes++ : dislikes++;
 }
 
 const int& Game::GetLikes() const

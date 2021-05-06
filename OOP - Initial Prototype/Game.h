@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <math.h>  
 
 class Game
 {
@@ -14,6 +15,8 @@ class Game
 		const int& GetRating() const;
 
 		const int& GetId() const;
+
+		const void AddReview(const bool&);
 
 		const int& GetLikes() const;
 		const int& GetDislikes() const;
