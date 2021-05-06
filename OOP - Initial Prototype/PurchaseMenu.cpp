@@ -33,7 +33,7 @@ void PurchaseMenu::OutputOptions()
 
 			if (!games[itemIndex]->GetHasReviewed()) {
 				Option('L', "Like Game?");
-				Option('D', "Dislie Game?");
+				Option('D', "Dislike Game?");
 			}
 			else
 			{
