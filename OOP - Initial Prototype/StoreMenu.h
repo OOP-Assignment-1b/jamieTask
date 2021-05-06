@@ -16,4 +16,6 @@ public:
 	bool HandleChoice(char choice) final;
 private:
 	List<std::string> games;
+	int index = 0;
+	int gameRows = 5;
 };
