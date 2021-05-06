@@ -5,16 +5,16 @@
 
 class PurchaseMenu : public Menu
 {
-	public:
-		PurchaseMenu(const std::string& title, Application* app, const int& index);
-		void OutputOptions() final;
-		bool HandleChoice(char choice) final;
-	private:
-		int index;
-		Game* game;
+public:
+	PurchaseMenu(const std::string& title, Application* app, const int& index);
+	void OutputOptions() final;
+	bool HandleChoice(char choice) final;
+private:
+	int index;
+	Game* game;
 
-		const int& GetLibraryItemIndex();
-		const void ReviewGame(const bool&);
-		const void Purchase();
+	const int& GetLibraryItemIndex();
+	const void ReviewGame(const bool&);
+	const void Purchase();
 };
 

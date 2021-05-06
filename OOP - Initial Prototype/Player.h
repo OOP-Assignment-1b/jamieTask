@@ -10,11 +10,11 @@
 
 class Player : public User
 {
-	public:
-		Player(const std::string&, const std::string&, const Date&, const std::string& role);
-		~Player();
-		void addLibraryItem(LibraryItem* item);
-		std::vector<LibraryItem*> getAllItems() const;
-	private:
-		std::vector<LibraryItem*> library;
+public:
+	Player(const std::string&, const std::string&, const Date&, const std::string& role);
+	~Player();
+	void addLibraryItem(LibraryItem* item);
+	std::vector<LibraryItem*> getAllItems() const;
+private:
+	std::vector<LibraryItem*> library;
 };

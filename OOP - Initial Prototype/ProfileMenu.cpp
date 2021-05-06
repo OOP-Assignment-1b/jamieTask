@@ -26,7 +26,7 @@ void ProfileMenu::OutputOptions()
 
 	std::vector<LibraryItem*> temp = player->getAllItems();
 
-	for (int i = 0 + index; i < GetCap(); i++)
+	for (int i = 0 + index; i < Utils::GetCap(dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size(), this->index, this->gameRows); i++)
 	{
 		double playTimeHours = temp[i]->GetPlaytime() / 60.00f;
 		Option((i + 1) - index, Utils::formatPlayTime(playTimeHours, temp[i]->getGame().GetName()));
@@ -34,7 +34,7 @@ void ProfileMenu::OutputOptions()
 
 	Line();
 	Line("PAGE " + std::to_string(((index / gameRows) + 1)) + " OF " + std::to_string(static_cast<int>(ceil(static_cast<float>(dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size()) / static_cast<float>(gameRows)))));
-	if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > GetCap()) {
+	if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > Utils::GetCap(dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size(), this->index, this->gameRows)) {
 		Option('E', "Next Page");
 	}
 
@@ -156,7 +156,7 @@ bool ProfileMenu::HandleChoice(char choice)
 		}break;
 		case 'E':
 		{
-			if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > GetCap()) this->index += gameRows;
+			if (dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size() > Utils::GetCap(dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size(), this->index, this->gameRows)) this->index += gameRows;
 		}break;
 		case 'Q':
 		{
@@ -183,14 +183,5 @@ const void ProfileMenu::DeleteUser(std::string& username) {
 	}
 
 	BlockingMessage("No account removed");
-
-}
-
-const int& ProfileMenu::GetCap() const {
-
-	int cap = dynamic_cast<Player*>(app->GetCurrentUser())->getAllItems().size();
-	if (cap >= this->index + gameRows) cap = gameRows + this->index;
-
-	return cap;
 
 }

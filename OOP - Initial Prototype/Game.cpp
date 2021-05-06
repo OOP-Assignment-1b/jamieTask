@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(const std::string& name, const std::string& desc,const int& cost,const int& rating, const int& likes, const int& dislikes, const int& id)
+Game::Game(const std::string& name, const std::string& desc, const int& cost, const int& rating, const int& likes, const int& dislikes, const int& id)
 	: name(name), description(desc), cost(cost), ageRating(rating), likes(likes), dislikes(dislikes), id(id)
 {}
 

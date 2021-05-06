@@ -1,7 +1,7 @@
 #pragma once
 #include "Menu.h"
 class LoginUser :
-    public Menu
+	public Menu
 {
 public:
 	LoginUser(const std::string& title, Application* app);

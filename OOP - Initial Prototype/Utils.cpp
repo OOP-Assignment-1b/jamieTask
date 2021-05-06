@@ -39,9 +39,9 @@ const int Utils::getDay() {
 const std::string Utils::toLower(const std::string& string)
 {
     std::string c;
-    for(int i=0; i < string.length(); i++)
+    for (int i = 0; i < string.length(); i++)
     {
-        c+=tolower(string[i]);
+        c += tolower(string[i]);
     }
     return c;
 }
@@ -56,7 +56,7 @@ const std::string Utils::toUpper(const std::string& string)
     return c;
 }
 
-const std::string Utils::recursiveToUpper (std::string str)
+const std::string Utils::recursiveToUpper(std::string str)
 {
     std::string result;
     if (str[0] == '\0') return result;
@@ -70,7 +70,7 @@ const int Utils::getRandomNumber(const int& max, const int& min)
 {
 
     return rand() % (max - 10) + min;
-	
+
 }
 
 const std::string Utils::formatPlayTime(double& time, const std::string& name)
@@ -95,7 +95,7 @@ const std::string Utils::formatPlayTime(double& time, const std::string& name)
     formatStringThree << std::left << std::setfill(' ') << std::setw(15) << name << std::setprecision(2) << '(' << time << suffix;
     return formatStringThree.str();
 
-	
+
 }
 
 const std::string Utils::formatCurrency(const std::string& text, const double& ammount)
@@ -107,7 +107,7 @@ const std::string Utils::formatCurrency(const std::string& text, const double& a
 
 const bool Utils::startsWith(const std::string& fullText, const std::string& searchText)
 {
-    
+
     if (searchText.length() > fullText.length())
     {
         return false;
@@ -129,4 +129,13 @@ std::vector<std::string> Utils::split(std::string& str, const std::string& delim
     }
 
     return tokens;
+}
+
+const int& Utils::GetCap(const int& size, const int& index, const int& rowSize) {
+
+    int cap = size;
+    if (cap >= index + rowSize) cap = rowSize + index;
+
+    return cap;
+
 }

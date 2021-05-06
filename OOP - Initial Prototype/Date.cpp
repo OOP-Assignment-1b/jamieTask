@@ -1,10 +1,10 @@
 #include "Date.h"
 
 
-Date::Date(const int& day, const int& month, const int& year):
+Date::Date(const int& day, const int& month, const int& year) :
 	day(day), month(month), year(year)
 {
-	
+
 }
 
 
@@ -12,7 +12,7 @@ std::string Date::getDate() const
 {
 
 	return getYear() + "-" + getMonth() + "-" + getDay();
-	
+
 }
 
 std::string Date::getDay() const
@@ -69,20 +69,20 @@ bool Date::compareDate(const int& day, const int& month, const int& year) const
 {
 
 	if (this->year > year) return true;
-	else if(this->month > month) return true;
+	else if (this->month > month) return true;
 	else if (this->day > day) return true;
 
 	return false;
-	
+
 }
 
 bool Date::compareDate(const std::string& date) const
 {
 
-	try{
+	try {
 		return strcmp(date.c_str(), getDate().c_str()) < 0;
 	}
-	catch(...){
+	catch (...) {
 		return false;
 	}
 

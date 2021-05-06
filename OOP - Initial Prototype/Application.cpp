@@ -363,7 +363,7 @@ bool Application::LoginAccount(const std::string& email, const std::string& pass
 bool Application::LoginUser(const std::string& username, const std::string& password)
 {
 
-	
+
 	for (int i = 0; i < currentAccount->getAllUsers().length(); i++) {
 		if (currentAccount->getAllUsers()[i]->GetUsername() == username && currentAccount->getAllUsers()[i]->GetPassword() == password) {
 			currentUser = currentAccount->getAllUsers()[i];

@@ -11,7 +11,7 @@
 
 class Utils
 {
-  public:
+public:
     static const std::string getLineFromUser();
     static const char getCharFromUser();
     static const int getYear();
@@ -26,7 +26,8 @@ class Utils
 
     static const std::string formatPlayTime(double& time, const std::string& name);
     static const std::string formatCurrency(const std::string& text, const double& ammount);
-    
+
     static const bool startsWith(const std::string& fullText, const std::string& searchText);
-    static std::vector<std::string> split( std::string& str, const std::string& delimiter);
+    static std::vector<std::string> split(std::string& str, const std::string& delimiter);
+    static const int& GetCap(const int& size, const int& index, const int& rowSize);
 };

@@ -6,7 +6,7 @@
 
 class Admin : public Player
 {
-	public:
-		Admin(const std::string&, const std::string&, const Date&, const std::string& role);
-		~Admin();
+public:
+	Admin(const std::string&, const std::string&, const Date&, const std::string& role);
+	~Admin();
 };

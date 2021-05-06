@@ -18,8 +18,7 @@ public:
 	bool HandleChoice(char choice) final;
 private:
 	int index = 0;
-	int gameRows = 5;
-	const int& ProfileMenu::GetCap() const;
+	const int gameRows = 5;
 	const void DeleteUser(std::string& username);
 
 };

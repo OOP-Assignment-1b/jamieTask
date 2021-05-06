@@ -5,7 +5,7 @@
 #include "PurchaseMenu.h"
 
 class SearchResultMenu :
-    public Menu
+	public Menu
 {
 public:
 	SearchResultMenu(const std::string& title, Application* app, List<Game*> gamesIn);
@@ -14,6 +14,8 @@ public:
 
 private:
 	List<Game*> games;
+	int index = 0;
+	int gameRows = 5;
 
 };
 

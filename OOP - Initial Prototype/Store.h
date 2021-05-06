@@ -6,18 +6,18 @@
 
 class Store
 {
-	public:
-		Store() = default;
-		~Store();
+public:
+	Store() = default;
+	~Store();
 
-		void addGame(Game* game);
+	void addGame(Game* game);
 
-		Game getAtIndex(const int&);
-		List<Game*> getGames();
+	Game getAtIndex(const int&);
+	List<Game*> getGames();
 
-		List <Game*> searchByName(std::string& userI, List<Game*> listGames);
-		List<Game*> searchByPrice(std::string& input, List<Game*> listGames);
+	List <Game*> searchByName(std::string& userI, List<Game*> listGames);
+	List<Game*> searchByPrice(std::string& input, List<Game*> listGames);
 
-	private:
-		List<Game*> games;
+private:
+	List<Game*> games;
 };

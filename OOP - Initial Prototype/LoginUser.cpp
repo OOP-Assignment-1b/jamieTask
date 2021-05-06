@@ -25,7 +25,7 @@ bool LoginUser::HandleChoice(char choice)
 	// this reverses the + 1 above and lets us do the range check below
 	int index = choice - '1';
 
-	
+
 	if (index >= 0 && index < app->GetCurrentAccount()->getAllUsers().length())
 	{
 		auto password = Question("Enter Password");
